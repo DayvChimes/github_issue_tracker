@@ -1,17 +1,13 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
   View,
   Text,
-  Image,
 } from 'react-native';
 import styles from './styles';
 import { Feather as Icon } from "@expo/vector-icons";
 import IssueComment from "../IssueComment";
 
-export default class IssuePage extends React.Component{
-
-  
-  render() {
+const IssueDescriptionPage= (props)=>{
 
     return(
       <View style={styles.page}>
@@ -56,6 +52,7 @@ export default class IssuePage extends React.Component{
       </View>
       </View>
     );
-  }
 
 }
+
+export default IssueDescriptionPage;

@@ -6,7 +6,7 @@ import {
 import styles from './styles';
 import { Feather as Icon } from "@expo/vector-icons";
 
-const Issue = (props) =>{
+const IssueComment = (props) =>{
 
 const handleClick=(e)=>{
   console.log(e.target);
@@ -20,4 +20,4 @@ const handleClick=(e)=>{
   );
 };
 
-export default Issue;
+export default IssueComment;

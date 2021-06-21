@@ -1,25 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import LogIn from './components/LogIn';
-import IssuePage from './components/IssuePage';
-import IssueDescriptionPage from './components/IssueDescriptionPage';
-import Issue from './components/Issue';
-import IssueComment from './components/IssueComment';
+import React from "react";
+import { Provider } from "react-redux";
+import store from "./src/Store";
+import { ApolloProvider } from "@apollo/client";
+import { View, Text} from 'react-native';
+import Navigator from "./src/routes/stack";
+import client from "./src/graphql/client";
+import Loader from "./src/index";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <LogIn/>
-    </View>
-  );
+const App = () => {
+    return (
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <Navigator/>
+      </Provider>
+    </ApolloProvider>
+    );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;

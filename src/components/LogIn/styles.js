@@ -3,7 +3,7 @@ import { StyleSheet, Dimensions, ProgressViewIOSComponent } from "react-native";
 const styles = StyleSheet.create({
 
 page: {
-  height: "100%",
+  height: Dimensions.get("window").height,
   width: "100%",
   backgroundColor: "cyan",
 },
@@ -12,7 +12,7 @@ logo: {
   height: 70,
   alignSelf: "center",
   alignItems: "center",
-  marginTop: "50%",
+  marginTop: "30%",
   //backgroundColor: "grey"
 },
 image: {
@@ -63,7 +63,7 @@ subtitle:{
   fontSize: 16,
   alignItems: 'center',
   textTransform: 'uppercase',
-  fontWeight: '500',
+  //fontWeight: '500',
 },
 button:{
   height: 40,

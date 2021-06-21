@@ -1,8 +1,8 @@
-import { StyleSheet, Dimensions, ProgressViewIOSComponent } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 const styles = StyleSheet.create({
   page: {
-  height: "100%",
+  height: Dimensions.get("window").height,
   width: "100%",
   backgroundColor: "cyan",
   //flexDirection: "column",
