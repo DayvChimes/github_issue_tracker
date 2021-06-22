@@ -43,7 +43,7 @@ export const signIn = (username) => (dispatch, _getState) => {
 
 export const getIssues = (username, first, after) => (dispatch, _getState) => {
   //dispatch(main.setLoading(true));
-
+  console.log("signIn");
   graphQlClient
     .query({
       query: UsernameIssues.USERNAME_ISSUES,

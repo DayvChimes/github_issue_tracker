@@ -8,6 +8,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+src/graphql/client.js
 
 # macOS
 .DS_Store
