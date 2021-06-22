@@ -29,7 +29,7 @@ const setRepositoryIssues = (issues) => ({
           data: { repository },
         } = result;
         //console.log(repository);
-        dispatch(setRepository(repository["owner"["login"]], repository["name"]));
+        dispatch(setRepository(repository["owner"]["login"], repository["name"]));
       })
       .catch((error) => {
         console.log("error", error);
