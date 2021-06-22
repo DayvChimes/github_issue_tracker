@@ -18,14 +18,4 @@ const screens = {
 
 const Stack = createStackNavigator(screens);
 
-/*function MyStack() {
-    return (
-      <Stack.Navigator>
-        <Stack.Screen name="LogIn" component={LogIn} />
-        <Stack.Screen name="IssuePage" component={IssuePage} />
-        <Stack.Screen name="IssueDecription" component={IssueDescription} />
-      </Stack.Navigator>
-    );
-  }*/
-
 export default createAppContainer(Stack);

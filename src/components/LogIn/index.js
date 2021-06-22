@@ -2,15 +2,12 @@ import React, { Component } from "react";
 import { View, Text, Image, Pressable } from "react-native";
 import styles from "./styles";
 import TextInputField from "../TextInputField/index";
-import { setIssues, setUser, getIssues, signIn } from "../../actions/username";
+import { getIssues, signIn } from "../../actions/username";
+import { getRepositoryIssues, signInRepository } from "../../actions/repository";
 import { setLoading } from "../../actions/main";
-import GetUserIssues from "../../actions/username";
-import * as User from "../../actions/user";
 import { connect } from "react-redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
-import userIssues from "../../actions/launchesPast";
-import { useDispatch } from "react-redux";
 
 require("react-dom");
 window.React2 = require("react");
@@ -19,17 +16,18 @@ const first = 10;
 const after = null;
 
 const LogIn = (props) => {
-  const dispatch = useDispatch();
-  logInSubmit = (values) => {    
-    //console.log(values);
+
+  logInSubmit = (values) => {
+    console.log(values);
     console.log("logInSubmit");
-    props.login(values.username);
-    //props.getUserIssues(values.username, dispatch);
+    values.repository === ""
+      ? props.getUserIssues(values.username, first, after)
+      : props.getRepoIssues(values.username, values.repository, first, after);
     //props.navigation.navigate("IssuePage");
   };
   const backgroundColor = "#171A20CC";
   const textColor = "#FFFFFF";
-  console.log(props);
+  //console.log(props);
 
   return (
     <KeyboardAwareScrollView>
@@ -45,10 +43,8 @@ const LogIn = (props) => {
           initialValues={{ username: "", repository: "" }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
-              console.log(values);
               logInSubmit(values);
               setSubmitting(false);
-              console.log("done");
             }, 400);
           }}
         >
@@ -98,8 +94,11 @@ const mapDispatchToProps = (dispatch) => {
     login: (username) => {
       dispatch(signIn(username));
     },
-    getUserIssues: (username) => {
-      dispatch(userIssues(username));
+    getUserIssues: (username, first, after) => {
+      dispatch(getIssues(username, first, after));
+    },
+    getRepoIssues: (username, repository, first, after) => {
+      dispatch(getRepositoryIssues(username, repository, first, after));
     },
   };
 };

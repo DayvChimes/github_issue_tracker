@@ -3,9 +3,12 @@ import graphQlClient from "../graphql/client";
 import * as UserUtils from "../utils/user";
 import * as RepositoryIssues from "../graphql/repository";
 
-const setRepository = (repository) => ({
+const setRepository = (username, repository) => ({
   type: contants.repository.SET_REPOSITORY,
-  payload: repository,
+  payload: {
+    username,
+    repository
+  }
 });
 
 const setRepositoryIssues = (issues) => ({
@@ -13,54 +16,49 @@ const setRepositoryIssues = (issues) => ({
   payload: issues,
 });
 
-export const signIn = (username, repository) => (dispatch, _getState) => {
-  dispatch(main.setLoading(true));
 
-  graphQlClient
-    .request({
-      request: RepositoryIssues.REPOSITORY_LOGIN,
-      variables: { username, repository },
-      update: (_cache, result) => {
-        const {
-          data: {
-            repository: { repository, id },
-          },
-        } = result;
-        UserUtils.setTokenToLocalStorage(id);
-        dispatch(setRepository(repository));
-        //dispatch(getRepositoryIssues(username, repository))
-        console.log(repository);
-      },
-    })
-    .catch((error) => {
-      console.log("error", error);
-    })
-    .finally(() => {
-      dispatch(main.setLoading(false));
-    });
-};
-
-
-export const getRepositoryIssues = (username, repository) => (dispatch, _getState) => {
-    dispatch(main.setLoading(true));
-
+  export const signInRepository = (username, repository) => (dispatch, _getState) => {
+    console.log("signIn");
     graphQlClient
-      .request({
-        request: RepositoryIssues.REPOSITORY_ISSUES,
-        variables: { username, repository, first, after }, //remember to pass this variables
-        update: (_cache, result) => {
-          const {
-            data: {
-              repositoryIssues: { issues },
-            },
-          } = result;
-          dispatch(setRepositoryIssues(issues)); //make this action
-        },
+      .query({
+        query: RepositoryIssues.REPOSITORY_LOGIN,
+        variables: { username, repository },
+      })
+      .then((result) => {
+        const {
+          data: { repository },
+        } = result;
+        //console.log(repository);
+        dispatch(setRepository(repository["owner"["login"]], repository["name"]));
       })
       .catch((error) => {
         console.log("error", error);
       })
       .finally(() => {
-        dispatch(main.setLoading(false));
+        //dispatch(main.setLoading(false));
+      });
+  };
+  
+  export const getRepositoryIssues = (username, repository, first, after) => (dispatch, _getState) => {
+    //dispatch(main.setLoading(true));
+  
+    graphQlClient
+      .query({
+        query: RepositoryIssues.REPOSITORY_ISSUES,
+        variables: { username, repository, first, after }, //remember to input variables for request
+      })
+      .then((result) => {
+        const {
+          data: { repository },
+        } = result;
+        console.log(repository);
+        dispatch(setRepository(repository["owner"]["login"], repository["name"]));
+        dispatch(setRepositoryIssues(repository["issues"]));
+      })
+      .catch((error) => {
+        console.log("error", error);
+      })
+      .finally(() => {
+        //dispatch(main.setLoading(false));
       });
   };
