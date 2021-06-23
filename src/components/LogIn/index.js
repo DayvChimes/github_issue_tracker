@@ -4,10 +4,10 @@ import styles from "./styles";
 import TextInputField from "../TextInputField/index";
 import { getIssues, signIn } from "../../actions/username";
 import { getRepositoryIssues, signInRepository } from "../../actions/repository";
-import { setLoading } from "../../actions/main";
 import { connect } from "react-redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
+import { setLoading } from "../../actions/main";
 
 require("react-dom");
 window.React2 = require("react");
@@ -20,10 +20,12 @@ const LogIn = (props) => {
   logInSubmit = (values) => {
     console.log(values);
     console.log("logInSubmit");
+    props.loading(true);
+    props.navigation.navigate("IssuePage");
     values.repository === ""
       ? props.getUserIssues(values.username, first, after)
       : props.getRepoIssues(values.username, values.repository, first, after);
-    //props.navigation.navigate("IssuePage");
+    props.loading(false);
   };
   const backgroundColor = "#171A20CC";
   const textColor = "#FFFFFF";
@@ -99,6 +101,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getRepoIssues: (username, repository, first, after) => {
       dispatch(getRepositoryIssues(username, repository, first, after));
+    },
+    loading: (load) => {
+      dispatch(setLoading(load));
     },
   };
 };

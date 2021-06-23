@@ -3,6 +3,7 @@ import graphQlClient from "../graphql/client";
 import * as UserUtils from "../utils/user";
 import * as UsernameIssues from "../graphql/username";
 import main from "./main";
+import { connect } from "react-redux";
 
 const setUser = (username) => {
   return {
@@ -42,7 +43,7 @@ export const signIn = (username) => (dispatch, _getState) => {
 };
 
 export const getIssues = (username, first, after) => (dispatch, _getState) => {
-  //dispatch(main.setLoading(true));
+
   console.log("signIn");
   graphQlClient
     .query({
@@ -61,6 +62,6 @@ export const getIssues = (username, first, after) => (dispatch, _getState) => {
       console.log("error", error);
     })
     .finally(() => {
-      //dispatch(main.setLoading(false));
     });
 };
+

@@ -5,23 +5,23 @@ import { SearchBar } from "react-native-elements";
 import { Feather as Icon } from "@expo/vector-icons";
 import ModalDropdown from "react-native-modal-dropdown";
 import Issue from "../Issue";
+import { connect } from "react-redux";
 
 const IssuePage= (props)=> {
   state = {
     search: "",
   };
 
-  updateSearch = (search) => {
+  const updateSearch = (search) => {
     this.setState({ search });
   };
-    const { search } = this.state;
+    const { search } = state;
 
-    const {  dispatch, navigation } = this.props;
+    const { navigation } = props;
 
-    const handleClick = () => {
-      e.preventDefault();
+  const handleClick = () => {
       navigation.navigate("IssueDescription");
-    };
+  };
 
     return (
       <View style={styles.page}>
@@ -40,7 +40,7 @@ const IssuePage= (props)=> {
             containerStyle={styles.containerstyle}
             inputContainerStyle={styles.inputcontainerstyle}
             placeholder="Type Here..."
-            onChangeText={this.updateSearch}
+            onChangeText={updateSearch}
             value={search}
             round="default"
             lightTheme="default"
@@ -69,10 +69,16 @@ const IssuePage= (props)=> {
         </View>
         <View style={styles.space}></View>
         <View style={styles.issuePagebox}>
-          <Pressable onPress={() => handleClick}>
+          <Pressable onPress={()=>{setTimeout(() => {
+              handleClick()              
+            }, 400);}}>
             <Issue />
           </Pressable>
+          <Pressable onPress={()=>{setTimeout(() => {
+              handleClick();              
+            }, 400);}}>
           <Issue />
+          </Pressable>
         </View>
       </View>
     );
