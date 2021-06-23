@@ -10,13 +10,18 @@ const Issue = (props) =>{
 
 const handleClick=(e)=>{
   console.log(e.target);
+  navigation.navigate("IssueDescription");
 };
 
+const id= "#23324"; 
 
-const id= "#23324";  
+const { issue } = props.issues;
 
   return(
   <View>
+  <Pressable onPress={()=>{setTimeout(() => {
+    handleClick()              
+  }, 400);}}>
   <View style={styles.issuecontainer}>
   <View style={styles.topissuecontainer}>
   <Text style={styles.issuedate}> Date </Text>
@@ -52,6 +57,7 @@ const id= "#23324";
   </View>
   <View style={styles.issuespace}>
   </View>
+  </Pressable>
   </View>
   );
 };

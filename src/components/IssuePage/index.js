@@ -5,6 +5,7 @@ import { SearchBar } from "react-native-elements";
 import { Feather as Icon } from "@expo/vector-icons";
 import ModalDropdown from "react-native-modal-dropdown";
 import Issue from "../Issue";
+import IssueList from "../IssueList";
 import { connect } from "react-redux";
 
 const IssuePage= (props)=> {
@@ -68,17 +69,8 @@ const IssuePage= (props)=> {
           </View>
         </View>
         <View style={styles.space}></View>
-        <View style={styles.issuePagebox}>
-          <Pressable onPress={()=>{setTimeout(() => {
-              handleClick()              
-            }, 400);}}>
-            <Issue />
-          </Pressable>
-          <Pressable onPress={()=>{setTimeout(() => {
-              handleClick();              
-            }, 400);}}>
-          <Issue />
-          </Pressable>
+        <View style={styles.issuePagebox}> 
+        <IssueList/>
         </View>
       </View>
     );
