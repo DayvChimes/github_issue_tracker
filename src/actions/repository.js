@@ -1,6 +1,7 @@
 import contants from "../constants";
 import graphQlClient from "../graphql/client";
 import * as UserUtils from "../utils/user";
+import { setLoading } from "./main";
 import * as RepositoryIssues from "../graphql/repository";
 
 const setRepository = (username, repository) => ({
@@ -16,31 +17,9 @@ const setRepositoryIssues = (issues) => ({
   payload: issues,
 });
 
-
-  export const signInRepository = (username, repository) => (dispatch, _getState) => {
-    console.log("signIn");
-    graphQlClient
-      .query({
-        query: RepositoryIssues.REPOSITORY_LOGIN,
-        variables: { username, repository },
-      })
-      .then((result) => {
-        const {
-          data: { repository },
-        } = result;
-        //console.log(repository);
-        dispatch(setRepository(repository["owner"]["login"], repository["name"]));
-      })
-      .catch((error) => {
-        console.log("error", error);
-      })
-      .finally(() => {
-        //dispatch(main.setLoading(false));
-      });
-  };
   
   export const getRepositoryIssues = (username, repository, first, after) => (dispatch, _getState) => {
-    //dispatch(main.setLoading(true));
+    setLoading(true);
   
     graphQlClient
       .query({
@@ -51,7 +30,6 @@ const setRepositoryIssues = (issues) => ({
         const {
           data: { repository },
         } = result;
-        console.log(repository);
         dispatch(setRepository(repository["owner"]["login"], repository["name"]));
         dispatch(setRepositoryIssues(repository["issues"]));
       })
@@ -59,6 +37,6 @@ const setRepositoryIssues = (issues) => ({
         console.log("error", error);
       })
       .finally(() => {
-        //dispatch(main.setLoading(false));
+        setLoading(false);
       });
   };

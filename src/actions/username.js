@@ -1,9 +1,10 @@
 import contants from "../constants";
-import graphQlClient from "../graphql/client";
+//import graphQlClient from "../graphql/client";
 import * as UserUtils from "../utils/user";
 import * as UsernameIssues from "../graphql/username";
-import main from "./main";
+import { setLoading } from "./main";
 import { connect } from "react-redux";
+import graphQlClient from "../graphql/client";
 
 const setUser = (username) => {
   return {
@@ -19,31 +20,9 @@ const setIssues = (issues) => {
   };
 };
 
-export const signIn = (username) => (dispatch, _getState) => {
-  console.log("signIn");
-  graphQlClient
-    .query({
-      query: UsernameIssues.USERNAME_LOGIN,
-      variables: { username },
-    })
-    .then((result) => {
-      const {
-        data: { user },
-      } = result;
-      //console.log(user);
-      dispatch(setUser(user["login"]));
-      //dispatch(getIssues(user["login"], 10, null));
-    })
-    .catch((error) => {
-      console.log("error", error);
-    })
-    .finally(() => {
-      //dispatch(main.setLoading(false));
-    });
-};
 
 export const getIssues = (username, first, after) => (dispatch, _getState) => {
-
+  dispatch(setLoading(true));     //Needed this to load before navigation to issueList
   console.log("signIn");
   graphQlClient
     .query({
@@ -54,7 +33,6 @@ export const getIssues = (username, first, after) => (dispatch, _getState) => {
       const {
         data: { user },
       } = result;
-      //console.log(user);
       dispatch(setUser(user["login"]));
       dispatch(setIssues(user["issues"]));
     })
@@ -62,6 +40,7 @@ export const getIssues = (username, first, after) => (dispatch, _getState) => {
       console.log("error", error);
     })
     .finally(() => {
+      dispatch(setLoading(false));  
     });
 };
 

@@ -7,7 +7,7 @@ import styles from './styles';
 import { Feather as Icon } from "@expo/vector-icons";
 import IssueComment from "../IssueComment";
 
-const IssueDescriptionPage= (props)=>{
+const IssueDescriptionPage=(props)=>{
 
     return(
       <View style={styles.page}>

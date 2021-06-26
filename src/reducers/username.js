@@ -1,7 +1,7 @@
 import contants from "../constants";
 
 const initialState = {
-  username: { login: "", id: "" },
+  username: {},
   userIssues: {}
 };
 

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { View, Text, Image, Pressable } from "react-native";
 import styles from "./styles";
 import TextInputField from "../TextInputField/index";
-import { getIssues, signIn } from "../../actions/username";
-import { getRepositoryIssues, signInRepository } from "../../actions/repository";
+import { getIssues } from "../../actions/username";
+import { getRepositoryIssues} from "../../actions/repository";
 import { connect } from "react-redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
@@ -12,24 +12,21 @@ import { setLoading } from "../../actions/main";
 require("react-dom");
 window.React2 = require("react");
 console.log(window.React1 === window.React2);
-const first = 10;
+const first = 1;
 const after = null;
 
-const LogIn = (props) => {
+const LogIn=(props)=>{
 
   logInSubmit = (values) => {
     console.log(values);
     console.log("logInSubmit");
-    props.loading(true);
-    props.navigation.navigate("IssuePage");
     values.repository === ""
-      ? props.getUserIssues(values.username, first, after)
+      ? props.getUserIssues(values.username, first, after )
       : props.getRepoIssues(values.username, values.repository, first, after);
-    props.loading(false);
+    props.navigation.navigate("IssuePage");
   };
   const backgroundColor = "#171A20CC";
   const textColor = "#FFFFFF";
-  //console.log(props);
 
   return (
     <KeyboardAwareScrollView>
@@ -87,23 +84,17 @@ const LogIn = (props) => {
 const mapStateToProps = (state) => {
   return {
     //username: state.username.username.login,
-    userState: state,
+    //userState: state,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {//have the least dispatches here for memory purposes
   return {
-    login: (username) => {
-      dispatch(signIn(username));
-    },
     getUserIssues: (username, first, after) => {
       dispatch(getIssues(username, first, after));
     },
     getRepoIssues: (username, repository, first, after) => {
       dispatch(getRepositoryIssues(username, repository, first, after));
-    },
-    loading: (load) => {
-      dispatch(setLoading(load));
     },
   };
 };
