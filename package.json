@@ -22,6 +22,7 @@
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
     "intl": "^1.2.5",
+    "lodash": "^4.17.21",
     "metro": "^0.59.0",
     "react": "^16.13.1",
     "react-dom": "16.13.1",

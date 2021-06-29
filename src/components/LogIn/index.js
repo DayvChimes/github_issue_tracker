@@ -3,7 +3,7 @@ import { View, Text, Image, Pressable } from "react-native";
 import styles from "./styles";
 import TextInputField from "../TextInputField/index";
 import { getIssues } from "../../actions/username";
-import { getRepositoryIssues} from "../../actions/repository";
+import { getRepositoryIssues } from "../../actions/repository";
 import { connect } from "react-redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
@@ -12,16 +12,15 @@ import { setLoading } from "../../actions/main";
 require("react-dom");
 window.React2 = require("react");
 console.log(window.React1 === window.React2);
-const first = 1;
+const first = 3;
 const after = null;
 
-const LogIn=(props)=>{
-
+const LogIn = (props) => {
   logInSubmit = (values) => {
     console.log(values);
     console.log("logInSubmit");
     values.repository === ""
-      ? props.getUserIssues(values.username, first, after )
+      ? props.getUserIssues(values.username, first, after)
       : props.getRepoIssues(values.username, values.repository, first, after);
     props.navigation.navigate("IssuePage");
   };
@@ -29,8 +28,8 @@ const LogIn=(props)=>{
   const textColor = "#FFFFFF";
 
   return (
-    <KeyboardAwareScrollView>
-      <View style={styles.page}>
+    <View style={styles.page}>
+      <KeyboardAwareScrollView>
         <View style={styles.logo}>
           <Image
             source={require("../../../assets/drone.png")}
@@ -76,8 +75,8 @@ const LogIn=(props)=>{
             </View>
           )}
         </Formik>
-      </View>
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
+    </View>
   );
 };
 
@@ -88,7 +87,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {//have the least dispatches here for memory purposes
+const mapDispatchToProps = (dispatch) => {
+  //have the least dispatches here for memory purposes
   return {
     getUserIssues: (username, first, after) => {
       dispatch(getIssues(username, first, after));

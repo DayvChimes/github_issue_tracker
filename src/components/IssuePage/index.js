@@ -26,7 +26,8 @@ const IssuePage = (props) => {
   const { loading, Search, search } = props;
 
   return (
-    <View style={styles.page}>
+    <View style={styles.page}>      
+      <ScrollView snapToStart={true}>
       <View style={styles.header}>
         <View style={styles.datecontainer}>
           <Text style={styles.present}>Today</Text>
@@ -74,6 +75,7 @@ const IssuePage = (props) => {
         {console.log("loading: " + loading)}
         {loading === true ? null : <IssueList/>}
       </View>
+      </ScrollView>
     </View>
   );
 };

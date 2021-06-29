@@ -6,25 +6,53 @@ import {
   Dimensions,
   VirtualizedList,
   ScrollView,
+  SafeAreaView,
 } from "react-native";
 import Issue from "../Issue";
 import { connect } from "react-redux";
+import _ from "lodash";
 
 import styles from "./styles";
 
-const getItem = (data, index) => ({
-  id: Math.random().toString(12).substring(0),
-  title: `Item ${index + 1}`,
-});
-
-const getItemCount = (data) => 1;
 
 const IssueList = (props) => {
+  const { issues } = props;
+
+  var i = 1;
+  
+  const { edges } = issues;
+
+  const getItem = (data, index) => ({
+    id: Math.random().toString(12).substring(0),
+    title: `Item ${index + 1}`,
+  });
+  
+  const getItemCount = (data) => 1;
+
   return (
     <View style={styles.container}>
-      <ScrollView snapToStart={true}>
-        {console.log(JSON.stringify(props.issues, undefined, 2))}
-      </ScrollView>
+         {issues.edges.map(((issuelist) => {
+          return (
+            <View key={issuelist.node.id}>
+            {/* {console.log(issuelist)} */}
+              <VirtualizedList
+                data={issues.edges}
+                initialNumToRender={5}
+                renderItem={({ item, index }) => (                  
+                  <Issue issue={(item = issuelist.node)} />
+                )}
+                keyExtractor={(item, index) => {
+                  return item.id;
+                }}
+                getItemCount={getItemCount}
+                getItem={getItem}
+                showsVerticalScrollIndicator={true}
+                snapToAlignment={"start"}
+                decelerationRate={"normal"}
+              /> 
+            </View>
+          );
+        }))} 
     </View>
   );
 };
