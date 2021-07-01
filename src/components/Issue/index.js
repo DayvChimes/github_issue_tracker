@@ -23,6 +23,7 @@ const Issue = (props) => {
     id,
     state,
     title,
+    number,
     body,
     comments: {
       edges: [
@@ -68,7 +69,7 @@ const Issue = (props) => {
                 <Text style={styles.issuedescription}>
                   {" "}
                   {shorten(body)}
-                  <Text style={styles.issueid}> {rid} </Text>
+                  <Text style={styles.issueid}> {number} </Text>
                 </Text>
               </View>
             </View>

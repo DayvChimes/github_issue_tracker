@@ -36,6 +36,7 @@ export const USERNAME_ISSUES = gql`
               }
               createdAt
               id
+              number
               state
               title
               body
