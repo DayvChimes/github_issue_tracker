@@ -8,11 +8,19 @@ const styles = StyleSheet.create({
     margin: 10,
     paddingVertical: 10,
   },
+  author: {
+    flexDirection: "row",
+    marginBottom: 10
+  },
   usericon: {
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    marginTop: 3,
+  },
+  authorname: {
+    flexDirection: "row"
   },
   commenttext: {
-    marginHorizontal: 10,
+    marginHorizontal: 10
   },
   });
 

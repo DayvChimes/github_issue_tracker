@@ -12,7 +12,7 @@ const link = new HttpLink({
   uri: "https://api.github.com/graphql",
 });
 
-const token = "Place_Token_Here";
+const token = "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";
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers

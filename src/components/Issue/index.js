@@ -1,23 +1,26 @@
 import React from "react";
-import { View, Text, Pressable} from "react-native";
+import { View, Text, Pressable, FlatList } from "react-native";
 import styles from "./styles";
 import { Feather as Icon } from "@expo/vector-icons";
 import { shorten } from "../../utils/stringUtils";
 import { IntlProvider, FormattedDate } from "react-intl";
 import "intl";
 import "intl/locale-data/jsonp/en";
+import Label from "../Label";
+import Status from "../Status";
 
 const Issue = (props) => {
-  const handleClick = (e) => {
-    console.log(e.target);
-    navigation.navigate("IssueDescription");
+  const handleClick = () => {
+    navigation.navigate("IssueDescription", issue);
   };
 
-  const rid = "#23324";
+  const { navigation, issue } = props;
+
+  var onEndReachedCalledDuringMomentum = true;
 
   const {
     author: { login },
-    repository: { repository },
+    repository: { name },
     labels: { nodes },
     createdAt,
     id,
@@ -25,15 +28,10 @@ const Issue = (props) => {
     title,
     number,
     body,
-    comments: {
-      edges: [
-        {
-          node: { author },
-        },
-      ],
-    },
-  } = props.issue;
+    comments: { edges },
+  } = issue;
 
+  //console.log(issue);
   if ("__setDefaultTimeZone" in Intl.DateTimeFormat) {
     Intl.DateTimeFormat.__setDefaultTimeZone("America/Los_Angeles");
   }
@@ -44,10 +42,10 @@ const Issue = (props) => {
   let da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(issuedate);
   issuedate = `${da}-${mo}-${ye}`;
 
+  const commentTotal = edges.length;
+
   return (
     <View>
-      {console.log(props.issue)}
-
       <Pressable
         onPress={() => {
           setTimeout(() => {
@@ -58,9 +56,13 @@ const Issue = (props) => {
         <View style={styles.issuecontainer}>
           <View style={styles.topissuecontainer}>
             <Text style={styles.issuedate}> {issuedate} </Text>
-            <View style={styles.issuestatus}>
-              <Text style={styles.issuestatustext}> {state} </Text>
+            <View style={styles.repocontainer}>
+              <View style={styles.repositorycontainer}>
+                <Icon name="git-branch" style={styles.repoicon} />
+                <Text style={styles.repositoryname}> {name} </Text>
+              </View>
             </View>
+            <Status status={state} navigation={navigation}/>
           </View>
           <View style={styles.midissuecontainer}>
             <View style={styles.issuedescriptioncontainer}>
@@ -69,7 +71,7 @@ const Issue = (props) => {
                 <Text style={styles.issuedescription}>
                   {" "}
                   {shorten(body)}
-                  <Text style={styles.issueid}> {number} </Text>
+                  <Text style={styles.issueid}> #{number} </Text>
                 </Text>
               </View>
             </View>
@@ -81,17 +83,28 @@ const Issue = (props) => {
             </View>
             <View style={styles.commentcontainer}>
               <Icon name="message-circle" style={styles.commenticon} />
-              <Text styles={styles.comments}> Comments </Text>
+              <Text styles={styles.comments}> {commentTotal} Comments</Text>
             </View>
           </View>
           <View style={styles.labelcontainer}>
-            <View style={styles.label}>
-              <Text style={styles.labeltext}> label </Text>
-            </View>
+            {nodes.length !== 0 ? (
+              <FlatList
+                data={nodes}
+                horizontal
+                renderItem={({ item }) => <Label label={item} navigation={navigation}/>}
+                keyExtractor={(item, index) => {
+                  return item.id;
+                }}
+                onMomentumScrollBegin={() => {
+                  onEndReachedCalledDuringMomentum = false;
+                }}
+                initialNumToRender={10}
+              />
+            ) : null}
           </View>
         </View>
         <View style={styles.issuespace}></View>
-        </Pressable>
+      </Pressable>
     </View>
   );
 };

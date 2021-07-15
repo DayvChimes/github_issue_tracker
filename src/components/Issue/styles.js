@@ -17,20 +17,28 @@ const styles = StyleSheet.create({
    alignItems: "center",
  },
  issuedate: {
-   width: "80%",
-   marginLeft: 10,
+   width: "30%",
+   marginLeft: 8,
    color: "black",
    fontSize: 14,
  },
- issuestatus:{
-   backgroundColor: "green",
-   borderRadius: 20,
-   marginLeft: -10,
+ repoicon:{
+  marginTop: 5,
+  marginLeft: -10,
+  },
+ repocontainer: {
+  alignItems: "center",
+  width: "50%",
+  marginLeft: -15,
+  //backgroundColor: "white", 
  },
- issuestatustext: {
-   color: "white",
-   fontSize: 14,
+ repositorycontainer: {
+  flexDirection: "row",   
+  paddingLeft: 10,
+  flexWrap: "nowrap",   
  },
+ repositoryname: {
+},
  midissuecontainer: {
    width: "100%",
    marginBottom: 10,

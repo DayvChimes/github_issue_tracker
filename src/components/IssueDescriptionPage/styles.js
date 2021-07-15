@@ -2,10 +2,13 @@ import { StyleSheet, Dimensions } from "react-native";
 
 const styles = StyleSheet.create({
   page: {
-  height: Dimensions.get("window").height,
-  width: "100%",
-  backgroundColor: "cyan",
-  //flexDirection: "column",
+    height: Dimensions.get("window").height,
+    width: "100%",
+    backgroundColor: "cyan",
+    //flexDirection: "column",
+  },
+  scroller: {
+    marginBottom: 100,
   },
   toppage: {
     //height: "30%",
@@ -21,20 +24,20 @@ const styles = StyleSheet.create({
   statusrepocontainer: {
     flexDirection: "row",
   },
-  issuestatuscontainer:{
-
+  issuestatuscontainer: {
+    alignItems: "center",
+    width: "20%",
+    //backgroundColor: "white",
   },
-  issuestatus:{
-   alignItems: "center",
-   width: "20%",
- },
- issuestatustext: {
-   backgroundColor: "green",
+  issuestatus: {
+     //backgroundColor: "green",
    borderRadius: 20,
-   color: "white",
-   fontSize: 14,
-   marginLeft: 10
- },
+   padding: 5
+  },
+  issuestatustext: {
+    color: "white",
+    fontSize: 14,
+  },
   issuenumbercontainer: {
     width: "40%",
   },
@@ -45,13 +48,22 @@ const styles = StyleSheet.create({
     width: "40%",
     alignItems: "flex-end",
   },
-  repository:{
+  repoicon:{
+    marginTop: 5,
+    marginLeft: -10,
+    },
+  repositorycontainer: {
+    flexDirection: "row",   
+    paddingLeft: 10,
+    flexWrap: "nowrap",   
+    },
+  repository: {
     marginRight: 10,
   },
   midpage: {
     marginBottom: 0,
   },
-  descriptioncontainer:{
+  descriptioncontainer: {
     marginBottom: 10,
   },
   description: {
@@ -62,48 +74,56 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 10,
   },
-  datecontainer:{
+  datecontainer: {
     width: "50%",
   },
   date: {
-     marginLeft: 10,
+    marginLeft: 10,
   },
-  initiatorcontainer:{
+  initiatorcontainer: {
     width: "50%",
     alignItems: "flex-end",
+    flexDirection: "row",
+   //backgroundColor: "white",
+    //paddingLeft: 10,
   },
-  initiator:{
-    marginRight: 10
+  initiator: {
+    marginRight: 10,
+  },
+  initiatoricon:{
+    marginTop: 5,
   },
   labelcontainer: {
-   //backgroundColor: "green",
-   alignItems: "flex-start",
-   paddingVertical: 10,
- },
- label: {
-   paddingHorizontal: 7,
-   backgroundColor: "yellow",
-   borderRadius: 10,
-   marginHorizontal: 10,
- },
- labeltext: {
-   color: "black",
-   fontSize: 14,
- },
+    //backgroundColor: "green",
+    alignItems: "flex-start",
+    paddingVertical: 10,
+  },
+  label: {
+    paddingHorizontal: 7,
+    backgroundColor: "yellow",
+    borderRadius: 10,
+    marginHorizontal: 10,
+  },
+  labeltext: {
+    color: "black",
+    fontSize: 14,
+  },
   bottompage: {
-     marginTop: 0,
+    marginTop: 0,
   },
   commenttitlecontainer: {
     flexDirection: "row",
     width: 100,
     marginLeft: 10,
   },
-  commenttitle:{
- 
-  },
+  commenttitle: {},
   commenticon: {
     marginTop: 4,
   },
-  });
+  bottomspace: {
+    width: "100%",
+    height: 50,
+  },
+});
 
 export default styles;

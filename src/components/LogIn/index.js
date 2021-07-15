@@ -1,35 +1,62 @@
 import React, { Component } from "react";
-import { View, Text, Image, Pressable } from "react-native";
+import { View, Text, Image, Pressable, ActivityIndicator } from "react-native";
 import styles from "./styles";
 import TextInputField from "../TextInputField/index";
-import { getIssues } from "../../actions/username";
-import { getRepositoryIssues } from "../../actions/repository";
+import { getIssues, refreshUsername, userRequest } from "../../actions/username";
+import { setSearchRequest } from "../../actions/search";
+import { getRepositoryIssues, refreshRepository, repositoryRequest } from "../../actions/repository";
 import { connect } from "react-redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
-import { setLoading } from "../../actions/main";
+import { setLoading, setFilterby } from "../../actions/main";
+import username from "../../reducers/username";
+import search from "../../reducers/search";
+//import { Text } from '@ui-kitten/components';
 
-require("react-dom");
-window.React2 = require("react");
-console.log(window.React1 === window.React2);
-const first = 3;
+const first = 10;
 const after = null;
+const field = "CREATED_AT";
+const labelnew = null;
+const statusnew = null;
 
 const LogIn = (props) => {
+  const { 
+    loading,
+    navigation,
+    usernameRequest,
+    repoRequest,
+    userrequest,
+    reporequest,
+    searchRequest,
+    setFilter,
+    setNewLabel,
+    setNewStatus,
+   } = props;
+
   logInSubmit = (values) => {
     console.log(values);
     console.log("logInSubmit");
-    values.repository === ""
-      ? props.getUserIssues(values.username, first, after)
-      : props.getRepoIssues(values.username, values.repository, first, after);
-    props.navigation.navigate("IssuePage");
+    //console.log("The User Request in LogIn is: "+userrequest);
+    //console.log("The Repo Request in LogIn is: "+reporequest);    
+    repoRequest(false);  
+    usernameRequest(false);
+    searchRequest(false);
+    setFilter(field);
+    setNewLabel(labelnew);
+    setNewStatus(statusnew);
+    //console.log("The User Request in LogIn is now: "+userrequest);
+    //console.log("The Repo Request in LogIn is now: "+reporequest);
+    values.repository == ""
+      ? props.getUserIssues(values.username, first, after, navigation)
+      : props.getRepoIssues(values.username, values.repository, first, after, navigation);    
+    navigation.navigate("IssuePage");
   };
   const backgroundColor = "#171A20CC";
   const textColor = "#FFFFFF";
 
   return (
-    <View style={styles.page}>
-      <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView>
+      <View style={styles.page}>
         <View style={styles.logo}>
           <Image
             source={require("../../../assets/drone.png")}
@@ -56,7 +83,7 @@ const LogIn = (props) => {
                   onChangeText={props.handleChange("username")}
                 />
                 <TextInputField
-                  icon="github"
+                  icon="git-branch"
                   placeholder="Enter Repository Name"
                   value={props.values.repository}
                   onChangeText={props.handleChange("repository")}
@@ -75,26 +102,46 @@ const LogIn = (props) => {
             </View>
           )}
         </Formik>
-      </KeyboardAwareScrollView>
-    </View>
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
+    loading: state.main.loading,
+    userrequest: state.username.userRequest,
+    reporequest: state.repository.repoRequest,
     //username: state.username.username.login,
-    //userState: state,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   //have the least dispatches here for memory purposes
   return {
-    getUserIssues: (username, first, after) => {
-      dispatch(getIssues(username, first, after));
+    getUserIssues: (username, first, after, navigation) => {
+      dispatch(getIssues(username, first, after, navigation));
     },
-    getRepoIssues: (username, repository, first, after) => {
-      dispatch(getRepositoryIssues(username, repository, first, after));
+    getRepoIssues: (username, repository, first, after, field, navigation) => {
+      dispatch(getRepositoryIssues(username, repository, first, after, field, navigation));
+    },
+    repoRequest: (request) => {
+      dispatch(repositoryRequest(request));
+    },
+    usernameRequest: (request) => {
+      dispatch(userRequest(request));
+    },
+    searchRequest: (request) => {
+      dispatch(setSearchRequest(request));
+    },
+    setFilter: (filter) => {
+      dispatch(setFilterby(filter));
+    },
+    setNewLabel: (label) => {
+      dispatch(setLabel(label));
+    },
+    setNewStatus: (status) => {
+      dispatch(setStatus(status));
     },
   };
 };

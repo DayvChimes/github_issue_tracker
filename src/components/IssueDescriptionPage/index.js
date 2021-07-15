@@ -1,58 +1,112 @@
-import React, {Component} from 'react';
-import {
-  View,
-  Text,
-} from 'react-native';
-import styles from './styles';
+import React, { Component } from "react";
+import { View, Text, ScrollView, FlatList } from "react-native";
+import styles from "./styles";
 import { Feather as Icon } from "@expo/vector-icons";
 import IssueComment from "../IssueComment";
+import "intl";
+import "intl/locale-data/jsonp/en";
+import Label from "../Label";
+import Status from "../Status";
 
-const IssueDescriptionPage=(props)=>{
+const IssueDescriptionPage = (props) => {
+  const { navigation } = props;
 
-    return(
-      <View style={styles.page}>
-      <View style={styles.toppage}>
-      <Text style={styles.title}> TITLE </Text>
-      <View style={styles.statusrepocontainer}>
-      <View style={styles.issuenumbercontainer}>
-      <Text style={styles.issuenumber}> issue number</Text>
-      </View>
-      <View style={styles.issuestatus}>
-      <Text style={styles.issuestatustext}> Status </Text> 
-      </View>
-      <View style={styles.repocontainer}>
-      <Text style={styles.repository}> repository</Text>
-      </View>
-      </View>
-      </View>
-      <View style={styles.midpage}>
-      <View style={styles.decriptioncontainer}>
-      <Text style={styles.description}>Issue Description</Text>
-      </View>
-      <View style={styles.dateinitiatorcontainer}>
-      <View style={styles.datecontainer}>
-      <Text style={styles.date}>Date</Text>
-      </View>
-      <View style={styles.initiatorcontainer}>
-      <Text style={styles.initiator}>Initiator</Text>
-      </View>
-      </View>
-      <View style={styles.labelcontainer}>
-      <View style={styles.label}>
-      <Text style={styles.labeltext}> label </Text>
-      </View>
-      </View>
-      </View>
-      <View style={styles.bottompage}>
-      <View style={styles.commenttitlecontainer}>
-      <Text styles={styles.commenttitle}> Comments </Text>
-      <Icon name = "message-circle" style={styles.commenticon}/>
-      </View>
-      <IssueComment/>
-      </View>
-      </View>
-    );
+  const { params } = navigation.state;
 
-}
+  const {
+    author: { login },
+    repository: { name },
+    labels: { nodes },
+    createdAt,
+    id,
+    state,
+    title,
+    number,
+    body,
+    comments: { edges },
+  } = params;
+
+  if ("__setDefaultTimeZone" in Intl.DateTimeFormat) {
+    Intl.DateTimeFormat.__setDefaultTimeZone("America/Los_Angeles");
+  }
+
+  let issuedate = Date.parse(createdAt);
+  let ye = new Intl.DateTimeFormat("en", { year: "numeric" }).format(issuedate);
+  let mo = new Intl.DateTimeFormat("en", { month: "short" }).format(issuedate);
+  let da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(issuedate);
+  issuedate = `${da}-${mo}-${ye}`;
+
+  const red = "#FF0000";
+  const green = "#008000";
+
+  return (
+    <View style={styles.page}>
+      <ScrollView style={styles.scroller}>
+        {/* {console.log(props)} */}
+        <View style={styles.toppage}>
+          <Text style={styles.title}> {title} </Text>
+          <View style={styles.statusrepocontainer}>
+            <View style={styles.issuenumbercontainer}>
+              <Text style={styles.issuenumber}> #{number}</Text>
+            </View>
+            <Status status={state} navigation={navigation} />
+            <View style={styles.repocontainer}>
+              <View style={styles.repositorycontainer}>
+                <Icon name="git-branch" style={styles.repoicon} />
+                <Text style={styles.repository}> {name}</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.midpage}>
+          <View style={styles.decriptioncontainer}>
+            <Text style={styles.description}>{body}</Text>
+          </View>
+          <View style={styles.dateinitiatorcontainer}>
+            <View style={styles.datecontainer}>
+              <Text style={styles.date}>{issuedate}</Text>
+            </View>
+            <View style={styles.initiatorcontainer}>
+              <Icon name="user" style={styles.initiatoricon} />
+              <Text style={styles.initiator}>{login}</Text>
+            </View>
+          </View>
+          <View style={styles.labelcontainer}>
+            {nodes.length !== 0 ? (
+              <FlatList
+                data={nodes}
+                horizontal
+                renderItem={({ item }) => (
+                  <Label label={item} navigation={navigation} />
+                )}
+                keyExtractor={(item, index) => {
+                  return item.id;
+                }}
+                onMomentumScrollBegin={() => {
+                  onEndReachedCalledDuringMomentum = false;
+                }}
+                initialNumToRender={10}
+              />
+            ) : null}
+          </View>
+        </View>
+        <View style={styles.bottompage}>
+          <View style={styles.commenttitlecontainer}>
+            <Text styles={styles.commenttitle}> Comments </Text>
+            <Icon name="message-circle" style={styles.commenticon} />
+          </View>
+          {edges.map((commentlist) => {
+            return (
+              <View key={commentlist.node.id}>
+                <IssueComment comment={commentlist.node} />
+              </View>
+            );
+          })}
+        </View>
+        <View style={styles.bottomspace}></View>
+      </ScrollView>
+    </View>
+  );
+};
 
 export default IssueDescriptionPage;

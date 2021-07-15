@@ -1,22 +1,22 @@
-import React from 'react';
-import {
-  View,
-  Text,
-} from 'react-native';
-import styles from './styles';
+import React from "react";
+import { View, Text } from "react-native";
+import styles from "./styles";
 import { Feather as Icon } from "@expo/vector-icons";
 
-const IssueComment = (props) =>{
+const IssueComment = (props) => {
+  const {
+    author: { login },
+    body,
+  } = props.comment;
 
-const handleClick=(e)=>{
-  console.log(e.target);
-}; 
-
-  return(
-      <View style={styles.commentcontainer}>
-      <Icon name = "user" style={styles.usericon}/>
-      <Text style={styles.commenttext}>Comment text</Text>
+  return (
+    <View style={styles.commentcontainer}>
+      <View style={styles.author}>
+        <Icon name="user" style={styles.usericon} />
+        <Text style={styles.authorname}>{login}</Text>
       </View>
+      <Text style={styles.commenttext}>{body}</Text>
+    </View>
   );
 };
 

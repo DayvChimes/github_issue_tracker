@@ -1203,6 +1203,21 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
+"@eva-design/dss@^2.0.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@eva-design/dss/-/dss-2.1.0.tgz#4fbf68ee81ed79ba53415b1710bc7a90d14a6447"
+  integrity sha512-YkbCvHdnucoeGcneGZDizY4Gu9bQZx0kSwQoxNhDTjDtdxbOWAVB8tMsp/dItL+RW5O8UdeKJ+OHYhmUdhGdiQ==
+
+"@eva-design/eva@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@eva-design/eva/-/eva-2.1.0.tgz#210561abd37a6a894203420a727b1184d66e809a"
+  integrity sha512-n/8sUkjo0GWrO9dhsjijkqg+nlste2p8/3mOWT18wymm03hQXoT4kg31IhawjdWgzubjNzSjqPh+Pov5ShtsHQ==
+
+"@eva-design/processor@^2.0.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@eva-design/processor/-/processor-2.1.0.tgz#a79d7fb9c45682e9a472cf5ae2f9180e262f2da2"
+  integrity sha512-86iTtQUJshG7oat+tulkty/Do5+eUKWC9ugSAEWVigL1EfUB/2+fbjzOZmR9NQwumki+onz9i0qQgcKHLKHkMA==
+
 "@expo/apple-utils@0.0.0-alpha.20":
   version "0.0.0-alpha.20"
   resolved "https://registry.npmjs.org/@expo/apple-utils/-/apple-utils-0.0.0-alpha.20.tgz"
@@ -2303,6 +2318,11 @@
   resolved "https://registry.npmjs.org/@react-native-community/masked-view/-/masked-view-0.1.10.tgz"
   integrity sha512-rk4sWFsmtOw8oyx8SD3KSvawwaK7gRBSEIy2TAwURyGt+3TizssXP1r8nx3zY+R7v2vYYHXZ+k2/GULAT/bcaQ==
 
+"@react-native-picker/picker@1.9.11":
+  version "1.9.11"
+  resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-1.9.11.tgz#490c752417c17d687e2941659b3c0bff9cb79b83"
+  integrity sha512-E7whvvMIl9Ln1sxgug7OAEVWQ69n82iV0d2OWWp5VV52+RW3azKh1IFm4rxdW5/oByMfl7FFL0eHNelGgY4BMQ==
+
 "@react-navigation/core@^3.7.9":
   version "3.7.9"
   resolved "https://registry.npmjs.org/@react-navigation/core/-/core-3.7.9.tgz"
@@ -2615,6 +2635,24 @@
   version "0.8.2"
   resolved "https://registry.npmjs.org/@types/zen-observable/-/zen-observable-0.8.2.tgz"
   integrity sha512-HrCIVMLjE1MOozVoD86622S7aunluLb2PJdPfb3nYiEtohm8mIB/vyv0Fd37AdeMFrTUQXEunw78YloMA3Qilg==
+
+"@ui-kitten/components@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@ui-kitten/components/-/components-5.1.0.tgz#fc83ffd00686a210bc59e5c8d0f0c7b3a99e63f3"
+  integrity sha512-jn8Q+SOIt0+VIIoNv6fkVwFcaE3+AxfENLZh9PGO+Sq+6fZsphntKlJI1q+AGjxxtsMbfhS+h6Pxtakw8/vMsg==
+  dependencies:
+    "@eva-design/dss" "^2.0.0"
+    "@eva-design/processor" "^2.0.0"
+    fecha "3.0.3"
+    hoist-non-react-statics "^3.2.1"
+    lodash.merge "^4.6.1"
+
+"@ui-kitten/eva-icons@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@ui-kitten/eva-icons/-/eva-icons-5.1.0.tgz#0c9c3c1de303c05937f955808a3effd3c517e432"
+  integrity sha512-f96QGp4w61FM1tRfCzW5N2l+a0ToR0wdTU79yY3rMaO9sf0whTNn0+ciz4BFK1cTSn14BtshPLxtphzkhwCfGg==
+  dependencies:
+    react-native-eva-icons "^1.3.1"
 
 "@unimodules/core@~7.1.0":
   version "7.1.0"
@@ -4701,7 +4739,7 @@ css-select-base-adapter@^0.1.1:
   resolved "https://registry.npmjs.org/css-select-base-adapter/-/css-select-base-adapter-0.1.1.tgz"
   integrity sha512-jQVeeRG70QI08vSTwf1jHxp74JoZsr2XSgETae8/xC8ovSnL2WF87GTLO86Sbwdt2lK4Umg4HnnwMO4YF3Ce7w==
 
-css-select@^2.0.0:
+css-select@^2.0.0, css-select@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/css-select/-/css-select-2.1.0.tgz"
   integrity sha512-Dqk7LQKpwLoH3VovzZnkzegqNSuAziQyNZUcrdDM401iY+R5NkGBXGmtO05/yaXQziALuPogeG0b7UAgjnTJTQ==
@@ -4730,7 +4768,7 @@ css-tree@1.0.0-alpha.37:
     mdn-data "2.0.4"
     source-map "^0.6.1"
 
-css-tree@^1.1.2:
+css-tree@^1.0.0-alpha.39, css-tree@^1.1.2:
   version "1.1.3"
   resolved "https://registry.npmjs.org/css-tree/-/css-tree-1.1.3.tgz"
   integrity sha512-tRpdppF7TRazZrjJ6v3stzv93qxRcSsFmW6cX0Zm2NVKpxE1WV1HblnghVv9TreireHkqI/VDEsfolRF1p6y7Q==
@@ -6001,6 +6039,11 @@ fbjs@^3.0.0:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.18"
 
+fecha@3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/fecha/-/fecha-3.0.3.tgz#fabbd416497649a42c24d34bfa726b579203a1e2"
+  integrity sha512-6LQK/1jud/FZnfEEZJ7y81vw7ge81DNd/XEsX0hgMUjhS+QMljkb1C0czBaP7dMNRVrd5mw/J2J7qI2Nw+TWZw==
+
 figgy-pudding@^3.5.1:
   version "3.5.2"
   resolved "https://registry.npmjs.org/figgy-pudding/-/figgy-pudding-3.5.2.tgz"
@@ -6771,7 +6814,7 @@ hoist-non-react-statics@^2.3.1:
   resolved "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz"
   integrity sha512-rqcy4pJo55FTTLWt+bU8ukscqHeE/e9KWvsOW2b/a3afxQZhwkQdT1rPPCJ0rYXdj4vNcasY8zHTH+jF/qStxw==
 
-hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.2:
+hoist-non-react-statics@^3.2.1, hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.2:
   version "3.3.2"
   resolved "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz"
   integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
@@ -7052,6 +7095,16 @@ immer@8.0.1:
   version "8.0.1"
   resolved "https://registry.npmjs.org/immer/-/immer-8.0.1.tgz"
   integrity sha512-aqXhGP7//Gui2+UrEtvxZxSquQVXTpZ7KDxfCcKAF3Vysvw0CViVaW9RZ1j1xlIYqaaaipBoqdqeibkc18PNvA==
+
+immer@^9.0.3:
+  version "9.0.3"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-9.0.3.tgz#146e2ba8b84d4b1b15378143c2345559915097f4"
+  integrity sha512-mONgeNSMuyjIe0lkQPa9YhdmTv8P19IeHV0biYhcXhbd5dhdB9HSK93zBpyKjp6wersSUgT5QyU0skmejUVP2A==
+
+immutable@^4.0.0-rc.14:
+  version "4.0.0-rc.14"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.0.0-rc.14.tgz#29ba96631ec10867d1348515ac4e6bdba462f071"
+  integrity sha512-pfkvmRKJSoW7JFx0QeYlAmT+kNYvn5j0u7bnpNq4N2RCvHSTlLT208G8jgaquNe+Q8kCPHKOSpxJkyvLDpYq0w==
 
 import-fresh@^2.0.0:
   version "2.0.0"
@@ -8100,6 +8153,11 @@ lodash.debounce@^4.0.8:
   resolved "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
   integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
 
+lodash.filter@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.filter/-/lodash.filter-4.6.0.tgz#668b1d4981603ae1cc5a6fa760143e480b4c4ace"
+  integrity sha1-ZosdSYFgOuHMWm+nYBQ+SAtMSs4=
+
 lodash.frompairs@^4.0.1:
   version "4.0.1"
   resolved "https://registry.npmjs.org/lodash.frompairs/-/lodash.frompairs-4.0.1.tgz"
@@ -8124,6 +8182,11 @@ lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.npmjs.org/lodash.memoize/-/lodash.memoize-4.1.2.tgz"
   integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
+
+lodash.merge@^4.6.1:
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
+  integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
 
 lodash.omit@^4.5.0:
   version "4.5.0"
@@ -10741,6 +10804,11 @@ react-native-elements@^3.4.1:
     react-native-ratings "^7.3.0"
     react-native-size-matters "^0.3.1"
 
+react-native-eva-icons@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-eva-icons/-/react-native-eva-icons-1.3.1.tgz#1e6e019b0fd3cb1669db50bd6bbdaa6d89327593"
+  integrity sha512-emd/aYXuOacuDVTx0SJoLi+xsOdCNdljQB3PTNCM9AQ3m/smG0X1TN0+ihelPO7MqoHzaH0h6lbANtwxGUy8Fw==
+
 react-native-gesture-handler@~1.10.2:
   version "1.10.3"
   resolved "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-1.10.3.tgz"
@@ -10764,13 +10832,6 @@ react-native-keyboard-aware-scroll-view@^0.9.4:
   dependencies:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
-
-react-native-modal-dropdown@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/react-native-modal-dropdown/-/react-native-modal-dropdown-1.0.0.tgz"
-  integrity sha512-+ghOIKgdRk4p3VLY2EcpKGE3IxCLcdjXkPJu6dNm4hRvre8et4T5fNiqhezYCg5aZUlTYn31Ba0dG9OOFAJHmg==
-  dependencies:
-    prop-types "^15.6.0"
 
 react-native-ratings@^7.3.0:
   version "7.6.1"
@@ -10818,6 +10879,14 @@ react-native-size-matters@^0.3.1:
   version "0.3.1"
   resolved "https://registry.npmjs.org/react-native-size-matters/-/react-native-size-matters-0.3.1.tgz"
   integrity sha512-mKOfBLIBFBcs9br1rlZDvxD5+mAl8Gfr5CounwJtxI6Z82rGrMO+Kgl9EIg3RMVf3G855a85YVqHJL2f5EDRlw==
+
+react-native-svg@12.1.0:
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-12.1.0.tgz#acfe48c35cd5fca3d5fd767abae0560c36cfc03d"
+  integrity sha512-1g9qBRci7man8QsHoXn6tP3DhCDiypGgc6+AOWq+Sy+PmP6yiyf8VmvKuoqrPam/tf5x+ZaBT2KI0gl7bptZ7w==
+  dependencies:
+    css-select "^2.1.0"
+    css-tree "^1.0.0-alpha.39"
 
 react-native-web@~0.13.12:
   version "0.13.18"
