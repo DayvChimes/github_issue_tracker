@@ -3,18 +3,17 @@ import { View, Text, Pressable, FlatList } from "react-native";
 import styles from "./styles";
 import { Feather as Icon } from "@expo/vector-icons";
 import { shorten } from "../../utils/stringUtils";
-import { IntlProvider, FormattedDate } from "react-intl";
 import "intl";
 import "intl/locale-data/jsonp/en";
 import Label from "../Label";
 import Status from "../Status";
 
 const Issue = (props) => {
-  const handleClick = () => {
-    navigation.navigate("IssueDescription", issue);
-  };
 
-  const { navigation, issue } = props;
+  const { 
+    navigation, 
+    issue,
+   } = props;
 
   var onEndReachedCalledDuringMomentum = true;
 
@@ -30,6 +29,12 @@ const Issue = (props) => {
     body,
     comments: { edges },
   } = issue;
+
+
+  const handleClick = () => {
+    navigation.navigate("IssueDescription", issue);
+  };
+ 
 
   //console.log(issue);
   if ("__setDefaultTimeZone" in Intl.DateTimeFormat) {
@@ -91,7 +96,9 @@ const Issue = (props) => {
               <FlatList
                 data={nodes}
                 horizontal
-                renderItem={({ item }) => <Label label={item} navigation={navigation}/>}
+                renderItem={({ item }) => (
+                  <Label label={item} navigation={navigation} />
+                )}
                 keyExtractor={(item, index) => {
                   return item.id;
                 }}
@@ -108,5 +115,6 @@ const Issue = (props) => {
     </View>
   );
 };
+
 
 export default Issue;

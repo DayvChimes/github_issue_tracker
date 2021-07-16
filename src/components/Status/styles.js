@@ -9,8 +9,7 @@ issuestatus:{
     //backgroundColor: "green",
     borderRadius: 20,
     marginLeft: -10,
-    padding: 5,         
-    borderWidth: 1,
+    padding: 5,
   },
 issuestatustext: {
     color: "white",

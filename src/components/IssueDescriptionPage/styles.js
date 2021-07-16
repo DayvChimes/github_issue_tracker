@@ -4,14 +4,11 @@ const styles = StyleSheet.create({
   page: {
     height: Dimensions.get("window").height,
     width: "100%",
-    backgroundColor: "cyan",
-    //flexDirection: "column",
   },
   scroller: {
     marginBottom: 100,
   },
   toppage: {
-    //height: "30%",
     width: "100%",
     marginBottom: 20,
   },
@@ -24,28 +21,23 @@ const styles = StyleSheet.create({
   statusrepocontainer: {
     flexDirection: "row",
   },
+  statuscontainer: {
+    alignItems: "center",
+    width: "100%",
+    paddingBottom: 20,
+  },
   issuestatuscontainer: {
     alignItems: "center",
     width: "20%",
-    //backgroundColor: "white",
-  },
-  issuestatus: {
-     //backgroundColor: "green",
-   borderRadius: 20,
-   padding: 5
-  },
-  issuestatustext: {
-    color: "white",
-    fontSize: 14,
   },
   issuenumbercontainer: {
-    width: "40%",
+    width: "20%",
   },
   issuenumber: {
     marginLeft: 10,
   },
   repocontainer: {
-    width: "40%",
+    width: "80%",
     alignItems: "flex-end",
   },
   repoicon:{
@@ -82,10 +74,8 @@ const styles = StyleSheet.create({
   },
   initiatorcontainer: {
     width: "50%",
-    alignItems: "flex-end",
+    justifyContent: "flex-end",
     flexDirection: "row",
-   //backgroundColor: "white",
-    //paddingLeft: 10,
   },
   initiator: {
     marginRight: 10,
@@ -94,7 +84,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   labelcontainer: {
-    //backgroundColor: "green",
     alignItems: "flex-start",
     paddingVertical: 10,
   },

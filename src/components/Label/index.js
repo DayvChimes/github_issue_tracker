@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import {getFilteredRepoIssues} from "../../actions/repository";
 import { getFilteredIssues} from "../../actions/username";
 import { setLabel } from "../../actions/main";
+import { GraphQLEnumType } from 'graphql';
 
 const IssueLabel = (props) => {
   
@@ -12,9 +13,11 @@ const IssueLabel = (props) => {
     label,
     navigation,
     username,
+    filterValue,
     repository,
     repouser,
     userrequest,
+    reporequest,
     setNewLabel,
     getFilteredUserIssues,
     getFilteredRepositoryIssues,
@@ -26,17 +29,26 @@ const IssueLabel = (props) => {
 
   const first = 10;
   const after = null;
-  const field = "CREATED_AT";
-  const status = null; 
+  let status = null; 
+
+
+  var stateTypes = new GraphQLEnumType({
+    name: 'OPEN',
+    values: {
+      OPEN: { value: "OPEN" },
+    }
+  });
+
 
   const handleClick = () => {
     console.log(name + " Label Pressed");
     setNewLabel(name);
     if (userrequest) {
-      getFilteredUserIssues(username, first, after, field, name, status);
-    } else {
-      getFilteredRepositoryIssues(repouser, repository, first, after, field, name, status);
+      getFilteredUserIssues(username, first, after, filterValue, name, status);
     }
+    else{ 
+     getFilteredRepositoryIssues(repouser, repository, first, after, filterValue, name, status);
+    };
     navigation.navigate("IssuePage");
   };
 
@@ -70,8 +82,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getFilteredUserIssues: (username, first, after, field, label) => {
-      dispatch(getFilteredIssues(username, first, after, field, label));
+    getFilteredUserIssues: (username, first, after, field, label, status) => {
+      dispatch(getFilteredIssues(username, first, after, field, label, status));
     },
     getFilteredRepositoryIssues: (
       username,
@@ -79,10 +91,11 @@ const mapDispatchToProps = (dispatch) => {
       first,
       after,
       field,
-      label
+      label,
+      status
     ) => {
       dispatch(
-        getFilteredRepoIssues(username, repository, first, after, field, label)
+        getFilteredRepoIssues(username, repository, first, after, field, label, status)
       );
     },
     setNewLabel: (label) => {

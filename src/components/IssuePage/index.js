@@ -1,7 +1,6 @@
 import React from "react";
 import { View, ActivityIndicator, Text } from "react-native";
 import styles from "./styles";
-import Issue from "../Issue";
 import IssueList from "../IssueList";
 import { connect } from "react-redux";
 

@@ -12,7 +12,7 @@ logo: {
   height: 70,
   alignSelf: "center",
   alignItems: "center",
-  marginTop: "30%",
+  marginTop: "10%",
   //backgroundColor: "grey"
 },
 image: {
@@ -22,7 +22,14 @@ image: {
 title: {
   textAlign: "center",
   fontWeight: "700",
-  marginTop: 20,
+  marginTop: 10,
+  marginBottom: 10,
+  fontSize: 18,
+},
+lowertitle: {
+  textAlign: "center",
+  fontWeight: "700",
+  
   fontSize: 18,
 },
 inputcontainer: {
@@ -30,34 +37,9 @@ inputcontainer: {
   justifyContent: "center",
   width: "100%",
   height: 100,
-  paddingTop: 20,
-  marginTop: "5%",
+  //paddingTop: 20,
+  //marginTop: "5%",
   //position: "absolute"
-},
-textinput1:{
-  width: 311,
-  top: 0,
-  left: 2,
-  height: 40,
-  margin: 12,
-  borderWidth: 1,
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
-  minHeight: 38,
-  //backgroundColor: "rgba(52, 52, 52, 0.7)"
-},
-textinput2:{
-  width: 311,
-  top: 0,
-  height: 40,
-  margin: 12,
-  borderWidth: 1,
-  left: 2,
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
-  minHeight: 38,
 },
 subtitle:{
   fontSize: 16,
@@ -65,16 +47,39 @@ subtitle:{
   textTransform: 'uppercase',
   //fontWeight: '500',
 },
+instructionsBox: {
+  width: "80%",
+  alignSelf: "center",
+  backgroundColor: 'gray',
+  paddingHorizontal: 10,
+  paddingVertical: 15,
+  marginVertical: 10,
+},
+instructionsTitle: {
+  fontSize: 16,
+  marginBottom: 10,
+  textAlign: "center",
+  fontWeight: "700",
+  color: "black",
+},
+dot:{
+  marginTop: 3,
+},
+instructions: {
+  fontSize: 14,
+  textAlign: "left",
+  color: "black",
+},
 button:{
   height: 40,
   justifyContent: 'center',
   borderRadius: 20,
   alignItems: 'center',
-  marginTop: "5%",
 },
 container:{
   width: '100%',
-  padding: 20,
+  paddingHorizontal: 20,
+  marginTop: 10,
 },
 });
 

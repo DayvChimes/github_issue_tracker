@@ -4,14 +4,14 @@
       [
         "module-resolver",
         {
-          "root": [
-            "./src"
-          ],
-        "alias": {
-           "react": "./node_modules/react",
-           "src": "./src",
-           "assets": "./src/assets"
-         }
+        //   "root": [
+        //     "./src"
+        //   ],
+        // "alias": {
+        //    "react": "./node_modules/react",
+        //    "src": "./src",
+        //    "assets": "./src/assets"
+         //}
         } 
       ] 
     ]

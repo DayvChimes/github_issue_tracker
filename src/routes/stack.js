@@ -8,7 +8,7 @@ const screens = {
   LogIn: {
     screen: LogIn,
     navigationOptions: {
-      title: "Log In"
+      title: "GitHub Issue Tracker"
     }
   },
   IssuePage: {

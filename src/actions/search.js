@@ -1,6 +1,6 @@
 import contants from "../constants";
 import * as Search from "../graphql/search";
-import { setLoading, setError } from "./main";
+import { setLoading} from "./main";
 import graphQlClient from "../graphql/client";
 
 export const setSearch = (search) => {

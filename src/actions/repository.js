@@ -1,7 +1,7 @@
 import contants from "../constants";
 import graphQlClient from "../graphql/client";
 import * as UserUtils from "../utils/user";
-import { setLoading, setLabel, setFilterby } from "./main";
+import { setLoading } from "./main";
 import * as RepositoryIssues from "../graphql/repository";
 
 const setRepository = (username, repository) => ({

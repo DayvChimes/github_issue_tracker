@@ -3,55 +3,33 @@ import {
   View,
   Text,
   FlatList,
-  Pressable,
-  Image,
   TextInput,
   ActivityIndicator,
-  Keyboard,
-  ScrollView,
-  Modal,
-  TouchableWithoutFeedback,
 } from "react-native";
-import { Formik } from "formik";
-import TextInputField from "../TextInputField/index";
 import Issue from "../Issue";
-import { SearchBar } from "react-native-elements";
-import { Feather as Icon } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import {
   getIssues,
   getMoreIssues,
-  userRequest,
-  setIssuesEdges,
   getFilteredIssues,
 } from "../../actions/username";
 import {
   getMoreRepoIssues,
   getRepositoryIssues,
-  repositoryRequest,
   getFilteredRepoIssues,
 } from "../../actions/repository";
 import {
-  setLoading,
-  setFilterby,
-  setLabel,
-  setStatus,
-} from "../../actions/main";
-import {
-  setSearchRequest,
   getSearchIssues,
   setSearch,
 } from "../../actions/search";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { setFilterby } from "../../actions/main";
 import { Picker } from "@react-native-picker/picker";
 import filter from "lodash.filter";
 import { debounce } from "lodash";
-import { Avatar, Input } from "@ui-kitten/components";
-import { Map } from "immutable";
-import produce from "immer";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import styles from "./styles";
+
 
 const IssueList = (props) => {
   const {
@@ -70,19 +48,12 @@ const IssueList = (props) => {
     repouser,
     getRepoIssues,
     getMoreRepoIssues,
-    error,
     reporequest,
     userrequest,
-    getsearchIssues,
-    usernameRequest,
-    repoRequest,
     filterValue,
-    setFilter,
     getFilteredUserIssues,
     getFilteredRepositoryIssues,
-    searchRequest,
-    setNewLabel,
-    setNewStatus,
+    setFilter,
   } = props;
 
   const state = {
@@ -103,48 +74,20 @@ const IssueList = (props) => {
 
   const [newData = issues.edges, setNewData] = useState();
 
-  const [modalOpen, setModalOpen] = useState(false);
-
   const [localLoading, setLocalLoading] = useState(false);
-
-  const backgroundColor = "#3E4DC3";
-  const textColor = "#FFFFFF";
 
   useEffect(() => {
     setLocalLoading(false);
-  }, [localLoading]);
-
-  const logInSubmit = (values) => {
-    console.log(values);
-    console.log("logInSubmit");
-    //console.log("The User Request in LogIn is: "+userrequest);
-    //console.log("The Repo Request in LogIn is: "+reporequest);
-    repoRequest(false);
-    usernameRequest(false);
-    setFilter(field);
-    setNewLabel(labelnew);
-    setNewStatus(statusnew);
-    searchRequest(false);
-    //console.log("The User Request in LogIn is now: "+userrequest);
-    //console.log("The Repo Request in LogIn is now: "+reporequest);
-    values.repository == ""
-      ? props.userIssues(values.username, first, after, navigation)
-      : props.getRepoIssues(
-          values.username,
-          values.repository,
-          first,
-          after,
-          navigation
-        );
-  };
+    setNewData(issues.edges);
+  }, [localLoading, newData]);
 
   const onChangeSearchInput = (e) => {
     console.log(e);
-    setLocalLoading(true);
     debouncedSearch(e);
   };
 
   const debouncedSearch = debounce(function (query) {
+    setLocalLoading(true);
     const data = filter(state.fullData.issues.edges, (issue) => {
       return contains(issue, query);
     });
@@ -153,7 +96,7 @@ const IssueList = (props) => {
       prevState = data;
       return [...prevState];
     });
-  }, 500);
+  }, 1000);
 
   const contains = ({ node }, query) => {
     const {
@@ -224,8 +167,9 @@ const IssueList = (props) => {
     setNewData(issues.edges);
     if (userrequest == true) {
       moreUserIssues(username, first, afterUser, filterValue, label, status);
-    } else {
-      getMoreRepoIssues(
+    }
+    else{ 
+       getMoreRepoIssues(
         repouser,
         repository,
         first,
@@ -234,16 +178,16 @@ const IssueList = (props) => {
         label,
         status
       );
-    }
+    };
   };
 
   const handleRefresh = () => {
     setNewData(issues.edges);
     if (userrequest == true) {
       userIssues(username, first, after, navigation);
-    } else {
+    } else{
       getRepoIssues(repouser, repository, first, after, navigation);
-    }
+    };
   };
 
   const filterType = (item) => {
@@ -251,48 +195,49 @@ const IssueList = (props) => {
     switch (item) {
       case "CREATED_AT":
         if (userrequest) {
-          getFilteredUserIssues(username, first, after, item, label, status);
-        } else {
-          getFilteredRepoIssues(
+          getFilteredUserIssues(username, first, after, item, label, statusnew);
+        } 
+        else{        
+          getFilteredRepositoryIssues(
             repouser,
             repository,
             first,
             after,
             item,
             label,
-            status
+            statusnew
           );
-        }
+        };
         break;
       case "UPDATED_AT":
         if (userrequest) {
-          getFilteredUserIssues(username, first, after, item, label, status);
-        } else {
-          getFilteredRepoIssues(
+          getFilteredUserIssues(username, first, after, item, label, statusnew);
+        } else{        
+          getFilteredRepositoryIssues(
             repouser,
             repository,
             first,
             after,
             item,
             label,
-            status
+            statusnew
           );
-        }
+        };
         break;
       case "COMMENTS":
         if (userrequest) {
-          getFilteredUserIssues(username, first, after, item, label, status);
-        } else {
-          getFilteredRepoIssues(
+          getFilteredUserIssues(username, first, after, item, label, statusnew);
+        } else{        
+          getFilteredRepositoryIssues(
             repouser,
             repository,
             first,
             after,
             item,
             label,
-            status
+            statusnew
           );
-        }
+        };
         break;
     }
   };
@@ -307,77 +252,11 @@ const IssueList = (props) => {
               {day}, {date} {month}
             </Text>
           </View>
-          <Modal visible={modalOpen} animationType="slide">
-            <KeyboardAwareScrollView>
-              <View style={styles.modalcontainer}>
-                {loading == true ? (
-                  <View style={styles.loading2}>
-                    <ActivityIndicator size="large" color="#000FFF" />
-                    <Text style={styles.subtitle}>Fetching Issues...</Text>
-                  </View>
-                ) : (
-                  <View>
-                    <View style={styles.modalClose}>
-                      <MaterialIcons
-                        name="close"
-                        size={30}
-                        onPress={() => setModalOpen(false)}
-                      />
-                    </View>
-                    <Text style={styles.title}>Track More GitHub Issues</Text>
-                    <Formik
-                      initialValues={{ username: "", repository: "" }}
-                      onSubmit={(values, { setSubmitting }) => {
-                        setTimeout(() => {
-                          logInSubmit(values);
-                          setSubmitting(false);
-                        }, 400);
-                      }}
-                    >
-                      {(props) => (
-                        <View>
-                          <View style={styles.inputcontainer}>
-                            <TextInputField
-                              icon="user"
-                              placeholder="Github Username"
-                              value={props.values.username}
-                              onChangeText={props.handleChange("username")}
-                            />
-                            <TextInputField
-                              icon="git-branch"
-                              placeholder="Enter Repository Name"
-                              value={props.values.repository}
-                              onChangeText={props.handleChange("repository")}
-                            />
-                          </View>
-                          <View style={styles.containerlogin}>
-                            <Pressable
-                              style={[
-                                styles.button,
-                                { backgroundColor: backgroundColor },
-                              ]}
-                              onPress={props.handleSubmit}
-                            >
-                              <Text
-                                style={[styles.subtitle, { color: textColor }]}
-                              >
-                                View
-                              </Text>
-                            </Pressable>
-                          </View>
-                        </View>
-                      )}
-                    </Formik>
-                  </View>
-                )}
-              </View>
-            </KeyboardAwareScrollView>
-          </Modal>
           <MaterialIcons
             name="settings"
             size={30}
             style={styles.settings}
-            onPress={() => setModalOpen(true)}
+            onPress={() => navigation.pop()}
           />
         </View>
         <View style={styles.searchcontainer}>
@@ -426,12 +305,6 @@ const IssueList = (props) => {
 
   return (
     <View style={styles.container}>
-      {console.log(
-        "The Repo Request is: " + reporequest + " in the IsssueList"
-      )}
-      {console.log(
-        "The User Request is: " + userrequest + " in the IsssueList"
-      )}
       <FlatList
         data={newData}
         renderItem={({ item }) => (
@@ -548,23 +421,8 @@ const mapDispatchToProps = (dispatch) => {
     Search: (search) => {
       dispatch(setSearch(search));
     },
-    searchRequest: (request) => {
-      dispatch(setSearchRequest(request));
-    },
-    repoRequest: (request) => {
-      dispatch(repositoryRequest(request));
-    },
-    usernameRequest: (request) => {
-      dispatch(userRequest(request));
-    },
     setFilter: (filter) => {
       dispatch(setFilterby(filter));
-    },
-    setNewLabel: (label) => {
-      dispatch(setLabel(label));
-    },
-    setNewStatus: (status) => {
-      dispatch(setStatus(status));
     },
   };
 };

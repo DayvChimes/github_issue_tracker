@@ -9,7 +9,7 @@ export const setLoading = (loading) => {
 
 export const setError = (error) => {
   return {
-    type: contants.main.SET_LOADING,
+    type: contants.main.SET_ERROR,
     payload: error,
   };
 };

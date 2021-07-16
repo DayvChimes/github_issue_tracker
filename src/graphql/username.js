@@ -154,16 +154,25 @@ export const USERNAME_FILTERED_ISSUES = gql`
 `;
 
 
-export const USERNAME_ISSUES_LABELS = gql`
-  query ($username: String!, $first: Int!, $after: String, $labels: [String!]) {
+
+export const USERNAME_ISSUES_STATUS = gql`
+  query (
+    $username: String!
+    $first: Int!
+    $after: String
+    $field: IssueOrderField!
+    $labels: [String!]
+    $states: [IssueState!]
+  ) {
     user(login: $username) {
       login
       id
       issues(
         first: $first
         after: $after
-        orderBy: { field: CREATED_AT, direction: DESC }
+        orderBy: { field: $field, direction: DESC }
         labels: $labels
+        states: $states
       ) {
         pageInfo {
           startCursor

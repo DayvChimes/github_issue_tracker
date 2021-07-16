@@ -3,57 +3,65 @@ import { View, Text, Pressable } from "react-native";
 import styles from "./styles";
 import { connect } from "react-redux";
 import { getFilteredRepoIssues } from "../../actions/repository";
-import { getFilteredIssues } from "../../actions/username";
+import { getUserIssuesStatus } from "../../actions/username";
 import { setStatus } from "../../actions/main";
+import { GraphQLEnumType } from 'graphql';
 
 const IssueStatus = (props) => {
   const {
     status,
+    stateStatus,
     navigation,
     username,
     repository,
     repouser,
     userrequest,
+    reporequest,
+    filterValue,
     setNewStatus,
-    getFilteredUserIssues,
+    getUsernameIssuesStatus,
     getFilteredRepositoryIssues,
   } = props;
 
   const first = 10;
   const after = null;
-  const field = "CREATED_AT";
   const label = null;
   const red = "#FF0000";
   const green = "#008000";
+  const statusNew = null;
 
-  const handleClick = () => {
-    
-    setNewStatus(status);
+  var stateTypes = new GraphQLEnumType({
+    name: 'OPEN',
+    values: {
+      OPEN: { value: "OPEN" },
+    }
+  });
+
+  const handleClick = () => {//Add pressable to status to call this action
+    console.log(JSON.stringify(status));
+    console.log(stateStatus);
+    setNewStatus(status);//it has an issue of enum type to pass to graphql which is not supported in javascript.   
+
     if (userrequest) {
-      getFilteredUserIssues(username, first, after, field, label, status);
-    } else {
+      getUsernameIssuesStatus(username, first, after, filterValue, label, status);
+    } 
+    else{ 
       getFilteredRepositoryIssues(
         repouser,
         repository,
         first,
         after,
-        field,
+        filterValue,
         label,
-        status,
+        status
       );
-    }
+    };
+    
     navigation.navigate("IssuePage");
   };
 
   return (
     <View style={styles.issuestatuscontainer}>
-        <Pressable
-        onPress={() => {
-          setTimeout(() => {
-            handleClick();
-          }, 400);
-        }}
-      >
       <View
         style={[
           styles.issuestatus,
@@ -64,7 +72,6 @@ const IssueStatus = (props) => {
       >
         <Text style={styles.issuestatustext}> {status} </Text>
       </View>
-      </Pressable>
     </View>
   );
 };
@@ -72,6 +79,7 @@ const IssueStatus = (props) => {
 const mapStateToProps = (state) => {
   return {
     filterValue: state.main.filter,
+    stateStatus: state.main.status,
     userrequest: state.username.userRequest,
     reporequest: state.repository.repoRequest,
     username: state.username.username,
@@ -82,8 +90,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getFilteredUserIssues: (username, first, after, field, label, status) => {
-      dispatch(getFilteredIssues(username, first, after, field, label, status));
+    getUsernameIssuesStatus: (username, first, after, field, label, status) => {
+      dispatch(getUserIssuesStatus(username, first, after, field, label, status));
     },
     getFilteredRepositoryIssues: (
       username,

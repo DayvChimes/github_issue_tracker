@@ -36,20 +36,18 @@ const IssueDescriptionPage = (props) => {
   let da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(issuedate);
   issuedate = `${da}-${mo}-${ye}`;
 
-  const red = "#FF0000";
-  const green = "#008000";
-
   return (
     <View style={styles.page}>
       <ScrollView style={styles.scroller}>
-        {/* {console.log(props)} */}
         <View style={styles.toppage}>
           <Text style={styles.title}> {title} </Text>
+          <View style={styles.statuscontainer}>
+            <Status status={state} navigation={navigation} />
+          </View>          
           <View style={styles.statusrepocontainer}>
             <View style={styles.issuenumbercontainer}>
               <Text style={styles.issuenumber}> #{number}</Text>
-            </View>
-            <Status status={state} navigation={navigation} />
+            </View>            
             <View style={styles.repocontainer}>
               <View style={styles.repositorycontainer}>
                 <Icon name="git-branch" style={styles.repoicon} />

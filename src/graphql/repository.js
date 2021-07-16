@@ -109,7 +109,7 @@ export const REPOSITORY_FILTERED_ISSUES = gql`
         after: $after
         orderBy: { field: $field, direction: DESC }
         labels: $labels
-        states:  $states
+        states: $states
       ) {
         pageInfo {
           startCursor

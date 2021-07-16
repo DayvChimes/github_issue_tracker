@@ -1,7 +1,7 @@
 import contants from "../constants";
 import * as UserUtils from "../utils/user";
 import * as UsernameIssues from "../graphql/username";
-import { setLoading, setLabel, setFilterby } from "./main";
+import { setLoading } from "./main";
 import graphQlClient from "../graphql/client";
 
 const setUser = (username) => {
@@ -113,6 +113,18 @@ export const getMoreIssues =
 
   export const getFilteredIssues = (username, first, after, field, labels, status) => (dispatch, _getState) => {
     dispatch(setLoading(true));
+
+    console.log("labelSearch");
+    console.log("***************");
+    console.log("***************");
+    console.log("username: "+username);
+    console.log("first: "+first);
+    console.log("after: "+after);
+    console.log("filter: "+field);
+    console.log("labels: "+labels);
+    console.log("status: "+status);
+    console.log("***************");
+    console.log("***************");
   
     console.log("signIn");
     graphQlClient
@@ -124,13 +136,9 @@ export const getMoreIssues =
         const {
           data: { user },
         } = result;
-  
-        if(user.issues.edges.length == 0){
-          alert("No Issues Available");
-        }        
-        else{         
+
         dispatch(setIssues(user["issues"]));
-        }
+        //console.log(user.issues);
       })        
       .catch((error) => {
         console.log("error", error);     
@@ -139,4 +147,41 @@ export const getMoreIssues =
         dispatch(setLoading(false));
       });
   };
+
+
+  export const getUserIssuesStatus = (username, first, after, field, labels, status) => (dispatch, _getState) => {
+    dispatch(setLoading(true));
+
+    console.log("statusSearch");
+    console.log("***************");
+    console.log("***************");
+    console.log("username: "+username);
+    console.log("first: "+first);
+    console.log("after: "+after);
+    console.log("filter: "+field);
+    console.log("labels: "+labels);
+    console.log("status: "+status);
+    console.log("***************");
+    console.log("***************");
+    graphQlClient
+      .query({
+        query: UsernameIssues.USERNAME_ISSUES_STATUS,
+        variables: { username, first, after, field, labels, status }, //remember to input variables for request
+      })
+      .then((result) => {
+        const {
+          data: { user },
+        } = result;
+
+        dispatch(setIssues(user.issues));
+        console.log(user.issues);
+      })        
+      .catch((error) => {
+        console.log("error", error);     
+      })
+      .finally(() => {
+        dispatch(setLoading(false));
+      });
+  };
+ 
  
