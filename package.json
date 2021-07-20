@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
   },
   "dependencies": {
     "@apollo/client": "^3.3.19",
@@ -34,10 +35,12 @@
     "react": "^16.13.1",
     "react-dom": "16.13.1",
     "react-intl": "^5.15.8",
+    "react-markdown": "^6.0.2",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
     "react-native-elements": "^3.4.1",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-keyboard-aware-scroll-view": "^0.9.4",
+    "react-native-markdown-view": "^1.1.4",
     "react-native-ratings": "^8.1.0",
     "react-native-reanimated": "~2.1.0",
     "react-native-safe-area-context": "3.2.0",
@@ -48,6 +51,7 @@
     "react-virtualized": "^9.22.3",
     "redux": "^4.1.0",
     "redux-thunk": "^2.3.0",
+    "rehype-highlight": "^4.1.0",
     "typescript": "4.3.4"
   },
   "resolutions": {
@@ -56,8 +60,22 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@types/jest": "^26.0.24",
+    "jest": "^27.0.6",
+    "jest-expo": "^42.0.1",
+    "jest-fetch-mock": "^3.0.3",
+    "react-native-library": "^1.0.25",
     "react-navigation": "^4.3.7",
-    "react-navigation-stack": "^2.3.11"
+    "react-navigation-stack": "^2.3.11",
+    "react-test-renderer": "^17.0.2"
   },
-  "private": true
+  "private": true,
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?/.*)",
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base)"
+    ],
+    "automock": false
+  }
 }

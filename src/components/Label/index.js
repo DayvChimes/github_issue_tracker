@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Pressable } from "react-native";
 import styles from "./styles";
 import { connect } from "react-redux";
-import {getFilteredRepoIssues} from "../../actions/repository";
+import {getRepoIssuesLabels} from "../../actions/repository";
 import { getFilteredIssues} from "../../actions/username";
 import { setLabel } from "../../actions/main";
 import { GraphQLEnumType } from 'graphql';
@@ -20,7 +20,7 @@ const IssueLabel = (props) => {
     reporequest,
     setNewLabel,
     getFilteredUserIssues,
-    getFilteredRepositoryIssues,
+    getRepositoryIssuesLabels,
   } = props
     
   const { 
@@ -41,13 +41,12 @@ const IssueLabel = (props) => {
 
 
   const handleClick = () => {
-    console.log(name + " Label Pressed");
     setNewLabel(name);
     if (userrequest) {
-      getFilteredUserIssues(username, first, after, filterValue, name, status);
+      getFilteredUserIssues(username, first, after, filterValue, name);
     }
     else{ 
-     getFilteredRepositoryIssues(repouser, repository, first, after, filterValue, name, status);
+     getRepositoryIssuesLabels(repouser, repository, first, after, filterValue, name);
     };
     navigation.navigate("IssuePage");
   };
@@ -82,20 +81,19 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getFilteredUserIssues: (username, first, after, field, label, status) => {
-      dispatch(getFilteredIssues(username, first, after, field, label, status));
+    getFilteredUserIssues: (username, first, after, field, label) => {
+      dispatch(getFilteredIssues(username, first, after, field, label));
     },
-    getFilteredRepositoryIssues: (
+    getRepositoryIssuesLabels: (
       username,
       repository,
       first,
       after,
       field,
-      label,
-      status
+      label
     ) => {
       dispatch(
-        getFilteredRepoIssues(username, repository, first, after, field, label, status)
+        getRepoIssuesLabels(username, repository, first, after, field, label)
       );
     },
     setNewLabel: (label) => {

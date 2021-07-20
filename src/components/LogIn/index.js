@@ -1,11 +1,15 @@
-import React, { Component } from "react";
-import { View, Text, Image, Pressable, ActivityIndicator } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  Pressable,
+  ActivityIndicator,
+  Modal,
+} from "react-native";
 import styles from "./styles";
 import TextInputField from "../TextInputField/index";
-import {
-  getIssues,
-  userRequest,
-} from "../../actions/username";
+import { getIssues, userRequest } from "../../actions/username";
 import {
   getRepositoryIssues,
   repositoryRequest,
@@ -15,6 +19,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { Formik } from "formik";
 import { setStatus, setFilterby, setLabel } from "../../actions/main";
 import { Entypo } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const first = 10;
 const after = null;
@@ -35,9 +40,9 @@ const LogIn = (props) => {
     setUserRequest,
   } = props;
 
+  const [modalOpen, setModalOpen] = useState(false);
+
   logInSubmit = (values) => {
-    console.log(values);
-    console.log("logInSubmit");
     setFilter(field);
     setNewLabel(labelnew);
     setNewStatus(statusnew);
@@ -62,32 +67,74 @@ const LogIn = (props) => {
       <View style={styles.page}>
         <View style={styles.logo}>
           <Image
-            source={require("../../../assets/drone.png")}
+            source={require("../../../assets/Logo_512x512.png")}
             style={styles.image}
           />
         </View>
         <Text style={styles.title}>Welcome to the GitHub issue Tracker</Text>
-        <View style={styles.instructionsBox}>
-          <Text style={styles.instructionsTitle}>ISSUE TRACKING DETAILS</Text>
-          <Text style={styles.instructions}>
-            <Entypo name="dot-single" size={14} color="black" />
-            To view the issues related to a specific user account input the
-            account Username only.
-          </Text>
-          <Text style={styles.instructions}>
-            <Entypo
-              name="dot-single"
-              size={14}
-              color="black"
-              style={styles.dot}
-            />
-            To view the issues related to a certain repository input the
-            Username of the repository owner and the repository name.
-          </Text>
-          <Text style={styles.instructions}>
-            <Entypo name="dot-single" size={14} color="black" />
-            No need to include uppercase letters in the names.
-          </Text>
+        <Modal
+          visible={modalOpen}
+          transparent={true}
+          animationType="slide"
+          style={styles.instructionsBoxModal}
+        >
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <View style={styles.instructionsBox}>
+              <View style={styles.modalClose}>
+                <MaterialIcons
+                  name="close"
+                  size={30}
+                  onPress={() => setModalOpen(false)}
+                />
+              </View>
+              <Text style={styles.instructionsTitle}>
+                ISSUE TRACKING DETAILS
+              </Text>
+              <Text style={styles.instructions}>
+                <Entypo name="dot-single" size={14} color="black" />
+                To view the issues related to a specific user account input the
+                account Username only. e.g {"\n"}
+                <Text style={[styles.instructions, { fontWeight: "700"}]}>                  
+                  username: visiky
+                </Text>
+              </Text>
+              <Text style={styles.instructions}>
+              {"\n"}
+                <Entypo
+                  name="dot-single"
+                  size={14}
+                  color="black"
+                  style={styles.dot}
+                />
+                To view the issues related to a certain repository input the
+                Username of the repository owner and the repository name. e.g {"\n"}
+                <Text style={[styles.instructions, { fontWeight: "700"}]}>                  
+                  username: apollographql{"\n"}
+                  repository name: apollo-client
+                </Text>
+              </Text>
+              <Text style={styles.instructions}>
+              {"\n"}
+                <Entypo name="dot-single" size={14} color="black" />
+                No need to include uppercase letters in the names.
+              </Text>
+            </View>
+          </View>
+        </Modal>
+        <View style={styles.infocirclecontainer}>
+        <Entypo
+          name="info-with-circle"
+          size={22}
+          style={styles.infomodal}
+          onPress={() => setModalOpen(true)}
+        />
         </View>
         <Formik
           initialValues={{ username: "", repository: "" }}
@@ -137,7 +184,6 @@ const mapStateToProps = (state) => {
     loading: state.main.loading,
     userrequest: state.username.userRequest,
     reporequest: state.repository.repoRequest,
-    //username: state.username.username.login,
   };
 };
 

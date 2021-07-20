@@ -12,6 +12,33 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     //backgroundColor: "gray",
   },
+  labelcontainer: {
+    //backgroundColor: "green",
+    alignItems: "flex-start",
+    paddingVertical: 10,
+  },
+  label: {
+    flexDirection: "row",
+    paddingHorizontal: 7,
+    backgroundColor: "gray",
+    borderRadius: 7,
+    marginHorizontal: 5,
+    padding: 3,
+    borderColor: "cyan",
+    borderWidth: 1,
+  },
+  labelclosecontainer: {
+    justifyContent: "center"
+  },
+  labelclose: {
+    color: "white",
+    marginStart: 0,
+    marginEnd: 4,
+  },
+  labeltext: {
+    color: "white",
+    fontSize: 14
+  },
   modalcontainer: {
     width: "100%",
     height: Dimensions.get("window").height,

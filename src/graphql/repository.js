@@ -96,7 +96,6 @@ export const REPOSITORY_FILTERED_ISSUES = gql`
     $after: String
     $field: IssueOrderField!
     $labels: [String!]
-    $states: [IssueState!]
   ) {
     repository(owner: $username, name: $repository) {
       name
@@ -109,7 +108,6 @@ export const REPOSITORY_FILTERED_ISSUES = gql`
         after: $after
         orderBy: { field: $field, direction: DESC }
         labels: $labels
-        states: $states
       ) {
         pageInfo {
           startCursor
@@ -175,7 +173,7 @@ export const REPOSITORY_ISSUES_LABELS = gql`
     $repository: String!
     $first: Int!
     $after: String
-    $labels: [String!]
+    $field: IssueOrderField!
   ) {
     repository(owner: $username, name: $repository) {
       name
@@ -186,8 +184,7 @@ export const REPOSITORY_ISSUES_LABELS = gql`
       issues(
         first: $first
         after: $after
-        orderBy: { field: CREATED_AT, direction: DESC }
-        labels: $labels
+        orderBy: { field: $field, direction: DESC }
       ) {
         pageInfo {
           startCursor

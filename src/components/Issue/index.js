@@ -36,7 +36,6 @@ const Issue = (props) => {
   };
  
 
-  //console.log(issue);
   if ("__setDefaultTimeZone" in Intl.DateTimeFormat) {
     Intl.DateTimeFormat.__setDefaultTimeZone("America/Los_Angeles");
   }
@@ -106,6 +105,8 @@ const Issue = (props) => {
                   onEndReachedCalledDuringMomentum = false;
                 }}
                 initialNumToRender={10}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
               />
             ) : null}
           </View>

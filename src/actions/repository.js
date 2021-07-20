@@ -8,8 +8,8 @@ const setRepository = (username, repository) => ({
   type: contants.repository.SET_REPOSITORY,
   payload: {
     username,
-    repository
-  }
+    repository,
+  },
 });
 
 const setRepositoryIssues = (issues) => ({
@@ -24,9 +24,9 @@ const setMoreRepoIssues = (issues) => {
   };
 };
 
- export const refreshRepository = () => {
+export const refreshRepository = () => {
   return {
-    type: contants.repository.REFRESH
+    type: contants.repository.REFRESH,
   };
 };
 
@@ -37,34 +37,116 @@ export const repositoryRequest = (request) => {
   };
 };
 
-  
-  export const getRepositoryIssues = (username, repository, first, after, navigation) => (dispatch, _getState) => {
+export const getRepositoryIssues =
+  (username, repository, first, after, navigation) => (dispatch, _getState) => {
     dispatch(setLoading(true));
     dispatch(repositoryRequest(true));
-    
+
     graphQlClient
       .query({
         query: RepositoryIssues.REPOSITORY_ISSUES,
-        variables: { username, repository, first, after}, 
+        variables: { username, repository, first, after },
       })
       .then((result) => {
         const {
           data: { repository },
         } = result;
 
-      if(repository.issues.edges.length == 0){
-        alert("No Issues Available");
-        navigation.pop();
-      }        
-      else{ 
-      dispatch(setRepository(repository["owner"]["login"], repository["name"]));
-      dispatch(setRepositoryIssues(repository["issues"]));
-      }
-    })
+        if (repository.issues.edges.length == 0) {
+          alert("No Issues Available");
+          navigation.pop();
+        } else {
+          dispatch(
+            setRepository(repository["owner"]["login"], repository["name"])
+          );
+          dispatch(setRepositoryIssues(repository["issues"]));
+        }
+      })
       .catch((error) => {
         console.log("error", error);
         navigation.pop();
-        alert("Input the Correct Names of the Username and/or Repository", undefined, 2);
+        alert(
+          "Input the Correct Names of the Username and/or Repository",
+          undefined,
+          2
+        );
+      })
+      .finally(() => {
+        dispatch(setLoading(false));
+      });
+  };
+
+export const getMoreRepoIssues =
+  (username, repository, first, after, field, labels) =>
+  (dispatch, _getState) => {
+    console.log("LoadMore");
+    console.log("***************");
+    console.log("***************");
+    console.log("username: "+username);
+    console.log("repository: "+repository);
+    console.log("first: "+first);
+    console.log("after: "+after);
+    console.log("filter: "+field);
+    // console.log("labels: "+labels);
+    // console.log("status: "+status);
+    console.log("***************");
+    console.log("***************");
+    graphQlClient
+      .query({
+        query: RepositoryIssues.REPOSITORY_FILTERED_ISSUES,
+        variables: {
+          username,
+          repository,
+          first,
+          after,
+          field,
+          labels
+        },
+      })
+      .then((result) => {
+        const {
+          data: { repository },
+        } = result;
+
+        if (repository.issues.edges.length == 0) {
+          alert("No More Issues, Pull down to Refresh");
+        } else {
+          dispatch(setMoreRepoIssues(repository["issues"]));
+        }
+      })
+      .catch((error) => {
+        console.log("error", error);
+      })
+      .finally(() => {});
+  };
+
+export const getFilteredRepoIssues =
+  (username, repository, first, after, field, labels) =>
+  (dispatch, _getState) => {
+    dispatch(setLoading(true));
+
+    graphQlClient
+      .query({
+        query: RepositoryIssues.REPOSITORY_FILTERED_ISSUES,
+        variables: {
+          username,
+          repository,
+          first,
+          after,
+          field,
+          labels
+        },
+      })
+      .then((result) => {
+        const {
+          data: { repository },
+        } = result;
+
+        console.log(repository["issues"])
+       dispatch(setRepositoryIssues(repository["issues"]));
+      })
+      .catch((error) => {
+        console.log("error", error);
       })
       .finally(() => {
         dispatch(setLoading(false));
@@ -72,57 +154,35 @@ export const repositoryRequest = (request) => {
   };
 
 
-  export const getMoreRepoIssues = (username, repository, first, after, field, labels, status) => (dispatch, _getState) => {
-  
-    graphQlClient
-      .query({
-        query: RepositoryIssues.REPOSITORY_FILTERED_ISSUES,
-        variables: { username, repository, first, after, field, labels, status }, 
-      })
-      .then((result) => {
-        const {
-          data: { repository },
-        } = result;
-
-        if(repository.issues.edges.length == 0){
-          alert("No More Issues, Pull down to Refresh");
-        }
-        else{          
-          dispatch(setMoreRepoIssues(repository["issues"]));
-        }
-        
-      })
-      .catch((error) => {
-        console.log("error", error);
-      })
-      .finally(() => {
-      });
-  };
-
-  export const getFilteredRepoIssues = (username, repository, first, after, field, labels, status) => (dispatch, _getState) => {
+  export const getRepoIssuesLabels =
+  (username, repository, first, after, field, labels) =>
+  (dispatch, _getState) => {
     dispatch(setLoading(true));
 
     graphQlClient
       .query({
         query: RepositoryIssues.REPOSITORY_FILTERED_ISSUES,
-        variables: { username, repository, first, after, field, labels, status }, 
+        variables: {
+          username,
+          repository,
+          first,
+          after,
+          field,
+          labels
+        },
       })
       .then((result) => {
         const {
           data: { repository },
         } = result;
 
-      if(repository.issues.edges.length == 0){
-        alert("No Issues Available");
-      }        
-      else{      
-      dispatch(setRepositoryIssues(repository["issues"]));
-      }
-    })
+          dispatch(setRepositoryIssues(repository["issues"]));
+      })
       .catch((error) => {
         console.log("error", error);
       })
       .finally(() => {
+        
         dispatch(setLoading(false));
       });
   };

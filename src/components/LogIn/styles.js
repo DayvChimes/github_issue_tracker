@@ -12,7 +12,7 @@ logo: {
   height: 70,
   alignSelf: "center",
   alignItems: "center",
-  marginTop: "10%",
+  marginTop: "30%",
   //backgroundColor: "grey"
 },
 image: {
@@ -22,14 +22,13 @@ image: {
 title: {
   textAlign: "center",
   fontWeight: "700",
-  marginTop: 10,
+  marginTop: 30,
   marginBottom: 10,
   fontSize: 18,
 },
 lowertitle: {
   textAlign: "center",
-  fontWeight: "700",
-  
+  fontWeight: "700",  
   fontSize: 18,
 },
 inputcontainer: {
@@ -37,9 +36,8 @@ inputcontainer: {
   justifyContent: "center",
   width: "100%",
   height: 100,
-  //paddingTop: 20,
-  //marginTop: "5%",
-  //position: "absolute"
+  paddingTop: 10,
+  marginTop: 10,
 },
 subtitle:{
   fontSize: 16,
@@ -47,12 +45,36 @@ subtitle:{
   textTransform: 'uppercase',
   //fontWeight: '500',
 },
+infomodal:{
+  marginRight: 40,
+  marginTop: 10,
+},
+modalClose: {
+  alignItems: "flex-end",
+  marginTop: 5,
+  marginRight: 15,
+},
+infocirclecontainer:{
+  width: "100%",
+  alignItems: "flex-end",
+},
+instructionsBoxModal: {
+  margin: 0,
+  shadowOffset: {
+    width: 0,
+    height: 2
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 4,
+  elevation: 5
+},
 instructionsBox: {
   width: "80%",
   alignSelf: "center",
-  backgroundColor: 'gray',
+  backgroundColor: 'white',
   paddingHorizontal: 10,
-  paddingVertical: 15,
+  //paddingVertical: 5,
+  paddingBottom: 40,
   marginVertical: 10,
 },
 instructionsTitle: {
@@ -79,7 +101,7 @@ button:{
 container:{
   width: '100%',
   paddingHorizontal: 20,
-  marginTop: 10,
+  marginTop: 20,
 },
 });
 

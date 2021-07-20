@@ -5,6 +5,8 @@ const initialState = {
   error: false,
   query: "",
   filter: "CREATED_AT",
+  label: null,
+  status: null
 };
 
 const main = (state = initialState, action) => {

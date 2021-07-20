@@ -84,7 +84,6 @@ export const USERNAME_FILTERED_ISSUES = gql`
     $after: String
     $field: IssueOrderField!
     $labels: [String!]
-    $states: [IssueState!]
   ) {
     user(login: $username) {
       login
@@ -94,7 +93,6 @@ export const USERNAME_FILTERED_ISSUES = gql`
         after: $after
         orderBy: { field: $field, direction: DESC }
         labels: $labels
-        states: $states
       ) {
         pageInfo {
           startCursor
@@ -162,7 +160,6 @@ export const USERNAME_ISSUES_STATUS = gql`
     $after: String
     $field: IssueOrderField!
     $labels: [String!]
-    $states: [IssueState!]
   ) {
     user(login: $username) {
       login
@@ -172,7 +169,6 @@ export const USERNAME_ISSUES_STATUS = gql`
         after: $after
         orderBy: { field: $field, direction: DESC }
         labels: $labels
-        states: $states
       ) {
         pageInfo {
           startCursor

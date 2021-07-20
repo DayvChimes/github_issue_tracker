@@ -7,6 +7,7 @@ import "intl";
 import "intl/locale-data/jsonp/en";
 import Label from "../Label";
 import Status from "../Status";
+import { insertMentionLinks } from "../../utils/stringUtils";
 
 const IssueDescriptionPage = (props) => {
   const { navigation } = props;
@@ -43,11 +44,11 @@ const IssueDescriptionPage = (props) => {
           <Text style={styles.title}> {title} </Text>
           <View style={styles.statuscontainer}>
             <Status status={state} navigation={navigation} />
-          </View>          
+          </View>
           <View style={styles.statusrepocontainer}>
             <View style={styles.issuenumbercontainer}>
               <Text style={styles.issuenumber}> #{number}</Text>
-            </View>            
+            </View>
             <View style={styles.repocontainer}>
               <View style={styles.repositorycontainer}>
                 <Icon name="git-branch" style={styles.repoicon} />
@@ -58,7 +59,7 @@ const IssueDescriptionPage = (props) => {
         </View>
         <View style={styles.midpage}>
           <View style={styles.decriptioncontainer}>
-            <Text style={styles.description}>{body}</Text>
+            <Text style={styles.description}>{insertMentionLinks(body)}</Text>
           </View>
           <View style={styles.dateinitiatorcontainer}>
             <View style={styles.datecontainer}>
@@ -84,6 +85,8 @@ const IssueDescriptionPage = (props) => {
                   onEndReachedCalledDuringMomentum = false;
                 }}
                 initialNumToRender={10}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
               />
             ) : null}
           </View>

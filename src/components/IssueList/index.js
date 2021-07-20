@@ -5,6 +5,7 @@ import {
   FlatList,
   TextInput,
   ActivityIndicator,
+  ScrollView
 } from "react-native";
 import Issue from "../Issue";
 import { connect } from "react-redux";
@@ -12,17 +13,19 @@ import {
   getIssues,
   getMoreIssues,
   getFilteredIssues,
+  getUserIssuesStatus,
 } from "../../actions/username";
 import {
   getMoreRepoIssues,
   getRepositoryIssues,
   getFilteredRepoIssues,
+  getRepoIssuesLabels
 } from "../../actions/repository";
 import {
   getSearchIssues,
   setSearch,
 } from "../../actions/search";
-import { setFilterby } from "../../actions/main";
+import { setFilterby, setLabel } from "../../actions/main";
 import { Picker } from "@react-native-picker/picker";
 import filter from "lodash.filter";
 import { debounce } from "lodash";
@@ -54,6 +57,9 @@ const IssueList = (props) => {
     getFilteredUserIssues,
     getFilteredRepositoryIssues,
     setFilter,
+    setLabelText,
+    getRepositoryIssuesLabels,
+    getUsernameIssuesStatus
   } = props;
 
   const state = {
@@ -74,12 +80,18 @@ const IssueList = (props) => {
 
   const [newData = issues.edges, setNewData] = useState();
 
+  const [labelChosen, setLabelChosen] = useState(false);
+  console.log("LabelChosen value in IssueList is: "+labelChosen)
+
   const [localLoading, setLocalLoading] = useState(false);
 
   useEffect(() => {
     setLocalLoading(false);
     setNewData(issues.edges);
-  }, [localLoading, newData]);
+    if(label !== null){
+     setLabelChosen(true);
+    }
+  }, [localLoading, newData, labelChosen]);
 
   const onChangeSearchInput = (e) => {
     console.log(e);
@@ -165,21 +177,50 @@ const IssueList = (props) => {
     Search("");
     setLocalLoading(true);
     setNewData(issues.edges);
-    if (userrequest == true) {
-      moreUserIssues(username, first, afterUser, filterValue, label, status);
+    console.log("Userrequest in LoadMore is: "+userrequest);
+    console.log("Reporequest in LoadMore is: "+reporequest);
+
+    if (userrequest == true ) {
+      if(label !== null){
+      moreUserIssues(username, first, afterUser, filterValue, label);
+      }
+      else{
+      moreUserIssues(username, first, afterUser, filterValue);
+      };
     }
     else{ 
+      if(label !== null){
        getMoreRepoIssues(
         repouser,
         repository,
         first,
         afterUser,
         filterValue,
-        label,
-        status
+        label
       );
+       }
+       else{
+        getMoreRepoIssues(
+          repouser,
+          repository,
+          first,
+          afterUser,
+          filterValue
+        );
+       }
     };
   };
+
+  const handleLabelClose= () =>{
+    setLabelText(null);
+    setLabelChosen(false);
+
+    if (userrequest == true) {
+      userIssues(username, first, after);
+    } else{
+      getRepoIssues(repouser, repository, first, after);
+    };
+  }
 
   const handleRefresh = () => {
     setNewData(issues.edges);
@@ -191,52 +232,97 @@ const IssueList = (props) => {
   };
 
   const filterType = (item) => {
+    console.log("LabelChosen value in Filter is: "+labelChosen)
     setFilter(item);
     switch (item) {
       case "CREATED_AT":
         if (userrequest) {
-          getFilteredUserIssues(username, first, after, item, label, statusnew);
+          if(label !== null){
+            getFilteredUserIssues(username, first, after, item, label);
+            }
+            else{
+            getFilteredUserIssues(username, first, after, item);
+            };          
         } 
-        else{        
+        else{   
+          if(label !== null){
+            getFilteredRepositoryIssues(
+             repouser,
+             repository,
+             first,
+             after,
+             item,
+             label
+           );
+            } else {     
           getFilteredRepositoryIssues(
             repouser,
             repository,
             first,
             after,
-            item,
-            label,
-            statusnew
+            item
           );
+          }
         };
         break;
       case "UPDATED_AT":
         if (userrequest) {
-          getFilteredUserIssues(username, first, after, item, label, statusnew);
-        } else{        
+          if(label !== null){
+            getFilteredUserIssues(username, first, after, item, label);
+            }
+            else{
+            getFilteredUserIssues(username, first, after, item);
+            };          
+        } 
+        else{   
+          if(label !== null){
+            getFilteredRepositoryIssues(
+             repouser,
+             repository,
+             first,
+             after,
+             item,
+             label
+           );
+            } else {     
           getFilteredRepositoryIssues(
             repouser,
             repository,
             first,
             after,
-            item,
-            label,
-            statusnew
+            item
           );
+          }
         };
         break;
       case "COMMENTS":
         if (userrequest) {
-          getFilteredUserIssues(username, first, after, item, label, statusnew);
-        } else{        
+          if(label !== null){
+            getFilteredUserIssues(username, first, after, item, label);
+            }
+            else{
+            getFilteredUserIssues(username, first, after, item);
+            };          
+        } 
+        else{   
+          if(label !== null){
+            getFilteredRepositoryIssues(
+             repouser,
+             repository,
+             first,
+             after,
+             item,
+             label
+           );
+            } else {     
           getFilteredRepositoryIssues(
             repouser,
             repository,
             first,
             after,
-            item,
-            label,
-            statusnew
+            item
           );
+          }
         };
         break;
     }
@@ -282,8 +368,26 @@ const IssueList = (props) => {
           >
             <Picker.Item label="Created At" value="CREATED_AT" />
             <Picker.Item label="Updated At" value="UPDATED_AT" />
+            {reporequest == true ? null : (
             <Picker.Item label="Comments" value="COMMENTS" />
+            )}
           </Picker>
+          <View>
+          {labelChosen == false ? null : (
+            <View style={styles.label}>
+              <View style={styles.labelclosecontainer}>
+              <MaterialIcons
+                name="close"
+                size={19}
+                style={styles.labelclose}
+                onPress={() => handleLabelClose()}
+              />
+              </View> 
+              <Text style={styles.labeltext}>{label}</Text>
+                           
+            </View>
+             )}             
+          </View>
         </View>
         <View style={styles.space}></View>
       </View>
@@ -363,12 +467,17 @@ const mapDispatchToProps = (dispatch) => {
     getsearchIssues: (labels, first, after, type) => {
       dispatch(getSearchIssues(labels, first, after, type));
     },
-    moreUserIssues: (username, first, after, field, labels, status) => {
-      dispatch(getMoreIssues(username, first, after, field, labels, status));
+    moreUserIssues: (username, first, after, field, labels) => {
+      dispatch(getMoreIssues(username, first, after, field, labels));
     },
-    getFilteredUserIssues: (username, first, after, field, labels, status) => {
+    getFilteredUserIssues: (username, first, after, field, labels) => {
       dispatch(
-        getFilteredIssues(username, first, after, field, labels, status)
+        getFilteredIssues(username, first, after, field, labels)
+      );
+    },
+    getUsernameIssuesStatus: (username, first, after, field, labels) => {
+      dispatch(
+        getUserIssuesStatus(username, first, after, field, labels)
       );
     },
     getRepoIssues: (username, repository, first, after, navigation) => {
@@ -382,8 +491,7 @@ const mapDispatchToProps = (dispatch) => {
       first,
       after,
       field,
-      labels,
-      status
+      label
     ) => {
       dispatch(
         getMoreRepoIssues(
@@ -392,8 +500,26 @@ const mapDispatchToProps = (dispatch) => {
           first,
           after,
           field,
-          labels,
-          status
+          label
+        )
+      );
+    },
+    getRepositoryIssuesLabels: (
+      username,
+      repository,
+      first,
+      after,
+      field,
+      labels
+    ) => {
+      dispatch(
+        getRepoIssuesLabels(
+          username,
+          repository,
+          first,
+          after,
+          field,
+          labels
         )
       );
     },
@@ -403,8 +529,7 @@ const mapDispatchToProps = (dispatch) => {
       first,
       after,
       field,
-      labels,
-      status
+      labels
     ) => {
       dispatch(
         getFilteredRepoIssues(
@@ -413,8 +538,7 @@ const mapDispatchToProps = (dispatch) => {
           first,
           after,
           field,
-          labels,
-          status
+          labels
         )
       );
     },
@@ -423,6 +547,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setFilter: (filter) => {
       dispatch(setFilterby(filter));
+    },
+    setLabelText: (label) => {
+      dispatch(setLabel(label));
     },
   };
 };

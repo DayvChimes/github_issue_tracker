@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Pressable } from "react-native";
 import styles from "./styles";
 import { connect } from "react-redux";
-import { getFilteredRepoIssues } from "../../actions/repository";
+import { getRepoIssuesLabels } from "../../actions/repository";
 import { getUserIssuesStatus } from "../../actions/username";
 import { setStatus } from "../../actions/main";
 import { GraphQLEnumType } from 'graphql';
@@ -20,7 +20,7 @@ const IssueStatus = (props) => {
     filterValue,
     setNewStatus,
     getUsernameIssuesStatus,
-    getFilteredRepositoryIssues,
+    getRepositoryIssuesLabels,
   } = props;
 
   const first = 10;
@@ -46,7 +46,7 @@ const IssueStatus = (props) => {
       getUsernameIssuesStatus(username, first, after, filterValue, label, status);
     } 
     else{ 
-      getFilteredRepositoryIssues(
+      getRepositoryIssuesLabels(
         repouser,
         repository,
         first,
@@ -93,7 +93,7 @@ const mapDispatchToProps = (dispatch) => {
     getUsernameIssuesStatus: (username, first, after, field, label, status) => {
       dispatch(getUserIssuesStatus(username, first, after, field, label, status));
     },
-    getFilteredRepositoryIssues: (
+    getRepositoryIssuesLabels: (
       username,
       repository,
       first,
@@ -103,7 +103,7 @@ const mapDispatchToProps = (dispatch) => {
       status
     ) => {
       dispatch(
-        getFilteredRepoIssues(username, repository, first, after, field, label, status)
+        getRepoIssuesLabels(username, repository, first, after, field, label, status)
       );
     },
     setNewStatus: (status) => {
