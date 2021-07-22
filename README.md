@@ -33,21 +33,14 @@ As said above the app can be used to track issues in different repositories and 
 <h1>Built With</h1>
 The app is built entirely using the Javascript Library of React Native infused with typescript.
 
-<<<<<<< HEAD
-=======
 
->>>>>>> eba680f54741d2bf309623d672170edb03e83555
 <h1>Getting Started</h1>
 
 1. Get a github access token [here] (https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 
 2. Clone the project repository from github to your preffered desktop folder.
-<<<<<<< HEAD
-   git clone https://github.com/DayvChimes/github_issue_tracker.git
-=======
-git clone https://github.com/DayvChimes/github_issue_tracker.git
 
->>>>>>> eba680f54741d2bf309623d672170edb03e83555
+git clone https://github.com/DayvChimes/github_issue_tracker.git
 
 3. Install Node Modules that are crucial for the appto run
 
@@ -61,10 +54,7 @@ const token = 'place-github-access-token-here';
 
 expo start
 
-<<<<<<< HEAD
-=======
 
->>>>>>> eba680f54741d2bf309623d672170edb03e83555
 <h1>File Structure</h1>
 <div class="snippet-clipboard-content position-relative"><pre><code>
 github_issues_tracker/
@@ -149,7 +139,6 @@ github_issues_tracker/
     <clipboard-copy aria-label="Copy" class="ClipboardButton btn js-clipboard-copy m-2 p-0 tooltipped-no-delay" data-copy-feedback="Copied!" data-tooltip-direction="w" value="github_issues_tracker/
 
 " tabindex="0" role="button">
-<<<<<<< HEAD
 <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-clippy js-clipboard-clippy-icon m-2">
 <path fill-rule="evenodd" d="M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z"></path>
 </svg>
@@ -159,8 +148,7 @@ github_issues_tracker/
 </clipboard-copy>
 
   </div></div>
-
-=======
+  
       <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-clippy js-clipboard-clippy-icon m-2">
     <path fill-rule="evenodd" d="M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z"></path>
 </svg>
@@ -169,9 +157,7 @@ github_issues_tracker/
 </svg>
     </clipboard-copy>
   </div></div>
-
-
->>>>>>> eba680f54741d2bf309623d672170edb03e83555
+  
 <h1>Contributing</h1>
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are greatly appreciated.
 
