@@ -21,12 +21,6 @@ As said above the app can be used to track issues in different repositories and 
 <td align="center"><a target="_blank" rel="noopener noreferrer" href="https://github.com/DayvChimes/github_issue_tracker/blob/main/screenshots/LoadMore.png"><img src="https://github.com/DayvChimes/github_issue_tracker/blob/main/screenshots/LoadMore.png" width="200/" style="max-width:100%;" data-stories_space_upload_el_handled="1"></a></td>
 <td align="center"><a target="_blank" rel="noopener noreferrer" href="https://github.com/DayvChimes/github_issue_tracker/blob/main/screenshots/search.png"><img src="https://github.com/DayvChimes/github_issue_tracker/blob/main/screenshots/search.png" width="200/" style="max-width:100%;" data-stories_space_upload_el_handled="1"></a></td>
 </tr>
-<tr>
-<td align="center">:--:</td>
-<td align="center">:--:</td>
-<td align="center">:--:</td>
-<td align="center">:--:</td>
-</tr>
 </tbody>
 </table>
 
