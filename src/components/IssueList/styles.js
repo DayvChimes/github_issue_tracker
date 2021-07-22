@@ -20,11 +20,11 @@ const styles = StyleSheet.create({
   label: {
     flexDirection: "row",
     paddingHorizontal: 7,
-    backgroundColor: "gray",
+    backgroundColor: "#3d005e",
     borderRadius: 7,
     marginHorizontal: 5,
     padding: 3,
-    borderColor: "cyan",
+    borderColor: "gray",
     borderWidth: 1,
   },
   labelclosecontainer: {
@@ -32,8 +32,7 @@ const styles = StyleSheet.create({
   },
   labelclose: {
     color: "white",
-    marginStart: 0,
-    marginEnd: 4,
+    marginStart: 4,
   },
   labeltext: {
     color: "white",
@@ -149,6 +148,7 @@ const styles = StyleSheet.create({
   },
   topbar: {
     height: 30,
+    marginRight: 10,
     width: "100%",
     marginTop: 0,
     position: "relative",

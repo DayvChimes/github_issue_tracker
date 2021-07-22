@@ -79,18 +79,6 @@ export const getRepositoryIssues =
 export const getMoreRepoIssues =
   (username, repository, first, after, field, labels) =>
   (dispatch, _getState) => {
-    console.log("LoadMore");
-    console.log("***************");
-    console.log("***************");
-    console.log("username: "+username);
-    console.log("repository: "+repository);
-    console.log("first: "+first);
-    console.log("after: "+after);
-    console.log("filter: "+field);
-    // console.log("labels: "+labels);
-    // console.log("status: "+status);
-    console.log("***************");
-    console.log("***************");
     graphQlClient
       .query({
         query: RepositoryIssues.REPOSITORY_FILTERED_ISSUES,
@@ -142,7 +130,6 @@ export const getFilteredRepoIssues =
           data: { repository },
         } = result;
 
-        console.log(repository["issues"])
        dispatch(setRepositoryIssues(repository["issues"]));
       })
       .catch((error) => {

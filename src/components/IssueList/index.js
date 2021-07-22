@@ -5,10 +5,12 @@ import {
   FlatList,
   TextInput,
   ActivityIndicator,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import Issue from "../Issue";
 import { connect } from "react-redux";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 import {
   getIssues,
   getMoreIssues,
@@ -19,12 +21,9 @@ import {
   getMoreRepoIssues,
   getRepositoryIssues,
   getFilteredRepoIssues,
-  getRepoIssuesLabels
+  getRepoIssuesLabels,
 } from "../../actions/repository";
-import {
-  getSearchIssues,
-  setSearch,
-} from "../../actions/search";
+import { getSearchIssues, setSearch } from "../../actions/search";
 import { setFilterby, setLabel } from "../../actions/main";
 import { Picker } from "@react-native-picker/picker";
 import filter from "lodash.filter";
@@ -32,7 +31,6 @@ import { debounce } from "lodash";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import styles from "./styles";
-
 
 const IssueList = (props) => {
   const {
@@ -59,7 +57,7 @@ const IssueList = (props) => {
     setFilter,
     setLabelText,
     getRepositoryIssuesLabels,
-    getUsernameIssuesStatus
+    getUsernameIssuesStatus,
   } = props;
 
   const state = {
@@ -81,15 +79,15 @@ const IssueList = (props) => {
   const [newData = issues.edges, setNewData] = useState();
 
   const [labelChosen, setLabelChosen] = useState(false);
-  console.log("LabelChosen value in IssueList is: "+labelChosen)
+  console.log("LabelChosen value in IssueList is: " + labelChosen);
 
   const [localLoading, setLocalLoading] = useState(false);
 
   useEffect(() => {
     setLocalLoading(false);
     setNewData(issues.edges);
-    if(label !== null){
-     setLabelChosen(true);
+    if (label !== null) {
+      setLabelChosen(true);
     }
   }, [localLoading, newData, labelChosen]);
 
@@ -177,153 +175,138 @@ const IssueList = (props) => {
     Search("");
     setLocalLoading(true);
     setNewData(issues.edges);
-    console.log("Userrequest in LoadMore is: "+userrequest);
-    console.log("Reporequest in LoadMore is: "+reporequest);
+    console.log("Userrequest in LoadMore is: " + userrequest);
+    console.log("Reporequest in LoadMore is: " + reporequest);
 
-    if (userrequest == true ) {
-      if(label !== null){
-      moreUserIssues(username, first, afterUser, filterValue, label);
+    if (userrequest == true) {
+      if (label !== null) {
+        moreUserIssues(username, first, afterUser, filterValue, label);
+      } else {
+        moreUserIssues(username, first, afterUser, filterValue);
       }
-      else{
-      moreUserIssues(username, first, afterUser, filterValue);
-      };
-    }
-    else{ 
-      if(label !== null){
-       getMoreRepoIssues(
-        repouser,
-        repository,
-        first,
-        afterUser,
-        filterValue,
-        label
-      );
-       }
-       else{
+    } else {
+      if (label !== null) {
         getMoreRepoIssues(
           repouser,
           repository,
           first,
           afterUser,
-          filterValue
+          filterValue,
+          label
         );
-       }
-    };
+      } else {
+        getMoreRepoIssues(repouser, repository, first, afterUser, filterValue);
+      }
+    }
   };
 
-  const handleLabelClose= () =>{
+  const handleLabelClose = () => {
     setLabelText(null);
     setLabelChosen(false);
 
     if (userrequest == true) {
       userIssues(username, first, after);
-    } else{
+    } else {
       getRepoIssues(repouser, repository, first, after);
-    };
-  }
+    }
+  };
 
   const handleRefresh = () => {
     setNewData(issues.edges);
     if (userrequest == true) {
       userIssues(username, first, after, navigation);
-    } else{
+    } else {
       getRepoIssues(repouser, repository, first, after, navigation);
-    };
+    }
   };
 
   const filterType = (item) => {
-    console.log("LabelChosen value in Filter is: "+labelChosen)
+    console.log("LabelChosen value in Filter is: " + labelChosen);
     setFilter(item);
     switch (item) {
       case "CREATED_AT":
         if (userrequest) {
-          if(label !== null){
+          if (label !== null) {
             getFilteredUserIssues(username, first, after, item, label);
-            }
-            else{
+          } else {
             getFilteredUserIssues(username, first, after, item);
-            };          
-        } 
-        else{   
-          if(label !== null){
-            getFilteredRepositoryIssues(
-             repouser,
-             repository,
-             first,
-             after,
-             item,
-             label
-           );
-            } else {     
-          getFilteredRepositoryIssues(
-            repouser,
-            repository,
-            first,
-            after,
-            item
-          );
           }
-        };
+        } else {
+          if (label !== null) {
+            getFilteredRepositoryIssues(
+              repouser,
+              repository,
+              first,
+              after,
+              item,
+              label
+            );
+          } else {
+            getFilteredRepositoryIssues(
+              repouser,
+              repository,
+              first,
+              after,
+              item
+            );
+          }
+        }
         break;
       case "UPDATED_AT":
         if (userrequest) {
-          if(label !== null){
+          if (label !== null) {
             getFilteredUserIssues(username, first, after, item, label);
-            }
-            else{
+          } else {
             getFilteredUserIssues(username, first, after, item);
-            };          
-        } 
-        else{   
-          if(label !== null){
-            getFilteredRepositoryIssues(
-             repouser,
-             repository,
-             first,
-             after,
-             item,
-             label
-           );
-            } else {     
-          getFilteredRepositoryIssues(
-            repouser,
-            repository,
-            first,
-            after,
-            item
-          );
           }
-        };
+        } else {
+          if (label !== null) {
+            getFilteredRepositoryIssues(
+              repouser,
+              repository,
+              first,
+              after,
+              item,
+              label
+            );
+          } else {
+            getFilteredRepositoryIssues(
+              repouser,
+              repository,
+              first,
+              after,
+              item
+            );
+          }
+        }
         break;
       case "COMMENTS":
         if (userrequest) {
-          if(label !== null){
+          if (label !== null) {
             getFilteredUserIssues(username, first, after, item, label);
-            }
-            else{
+          } else {
             getFilteredUserIssues(username, first, after, item);
-            };          
-        } 
-        else{   
-          if(label !== null){
-            getFilteredRepositoryIssues(
-             repouser,
-             repository,
-             first,
-             after,
-             item,
-             label
-           );
-            } else {     
-          getFilteredRepositoryIssues(
-            repouser,
-            repository,
-            first,
-            after,
-            item
-          );
           }
-        };
+        } else {
+          if (label !== null) {
+            getFilteredRepositoryIssues(
+              repouser,
+              repository,
+              first,
+              after,
+              item,
+              label
+            );
+          } else {
+            getFilteredRepositoryIssues(
+              repouser,
+              repository,
+              first,
+              after,
+              item
+            );
+          }
+        }
         break;
     }
   };
@@ -357,38 +340,43 @@ const IssueList = (props) => {
             textStyle={{ color: "#000" }}
           />
         </View>
-        <View style={styles.topbar}>
-          <Picker
-            selectedValue={filterValue}
-            onValueChange={(itemValue, itemIndex) => {
-              console.log(itemValue);
-              filterType(itemValue);
-            }}
-            style={styles.dropdown}
-          >
-            <Picker.Item label="Created At" value="CREATED_AT" />
-            <Picker.Item label="Updated At" value="UPDATED_AT" />
-            {reporequest == true ? null : (
-            <Picker.Item label="Comments" value="COMMENTS" />
-            )}
-          </Picker>
-          <View>
-          {labelChosen == false ? null : (
-            <View style={styles.label}>
-              <View style={styles.labelclosecontainer}>
-              <MaterialIcons
-                name="close"
-                size={19}
-                style={styles.labelclose}
-                onPress={() => handleLabelClose()}
-              />
-              </View> 
-              <Text style={styles.labeltext}>{label}</Text>
-                           
+        <ScrollView
+          horizontal
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+        >
+          <View style={styles.topbar}>
+            <Picker
+              selectedValue={filterValue}
+              onValueChange={(itemValue, itemIndex) => {
+                console.log(itemValue);
+                filterType(itemValue);
+              }}
+              style={styles.dropdown}
+            >
+              <Picker.Item label="Created At" value="CREATED_AT" />
+              <Picker.Item label="Updated At" value="UPDATED_AT" />
+              {/* {reporequest == true ? null : ( */}
+              <Picker.Item label="Comments" value="COMMENTS" />
+              {/* )} */}
+            </Picker>
+            <View>
+              {labelChosen == false ? null : (
+                <View style={styles.label}>
+                  <Text style={styles.labeltext}>{label}</Text>
+                  <View style={styles.labelclosecontainer}>
+                    <MaterialIcons
+                      name="close"
+                      size={19}
+                      style={styles.labelclose}
+                      onPress={() => handleLabelClose()}
+                    />
+                  </View>
+                </View>
+              )}
             </View>
-             )}             
           </View>
-        </View>
+        </ScrollView>
         <View style={styles.space}></View>
       </View>
     );
@@ -426,7 +414,7 @@ const IssueList = (props) => {
             onEndReachedCalledDuringMomentum = true;
           }
         }}
-        onEndReachedThreshold={0.05}
+        onEndReachedThreshold={0.1}
         initialNumToRender={50}
         ListHeaderComponent={getHeader}
         ListFooterComponent={getFooter}
@@ -471,37 +459,19 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(getMoreIssues(username, first, after, field, labels));
     },
     getFilteredUserIssues: (username, first, after, field, labels) => {
-      dispatch(
-        getFilteredIssues(username, first, after, field, labels)
-      );
+      dispatch(getFilteredIssues(username, first, after, field, labels));
     },
     getUsernameIssuesStatus: (username, first, after, field, labels) => {
-      dispatch(
-        getUserIssuesStatus(username, first, after, field, labels)
-      );
+      dispatch(getUserIssuesStatus(username, first, after, field, labels));
     },
     getRepoIssues: (username, repository, first, after, navigation) => {
       dispatch(
         getRepositoryIssues(username, repository, first, after, navigation)
       );
     },
-    getMoreRepoIssues: (
-      username,
-      repository,
-      first,
-      after,
-      field,
-      label
-    ) => {
+    getMoreRepoIssues: (username, repository, first, after, field, label) => {
       dispatch(
-        getMoreRepoIssues(
-          username,
-          repository,
-          first,
-          after,
-          field,
-          label
-        )
+        getMoreRepoIssues(username, repository, first, after, field, label)
       );
     },
     getRepositoryIssuesLabels: (
@@ -513,14 +483,7 @@ const mapDispatchToProps = (dispatch) => {
       labels
     ) => {
       dispatch(
-        getRepoIssuesLabels(
-          username,
-          repository,
-          first,
-          after,
-          field,
-          labels
-        )
+        getRepoIssuesLabels(username, repository, first, after, field, labels)
       );
     },
     getFilteredRepositoryIssues: (
@@ -532,14 +495,7 @@ const mapDispatchToProps = (dispatch) => {
       labels
     ) => {
       dispatch(
-        getFilteredRepoIssues(
-          username,
-          repository,
-          first,
-          after,
-          field,
-          labels
-        )
+        getFilteredRepoIssues(username, repository, first, after, field, labels)
       );
     },
     Search: (search) => {
