@@ -1,5 +1,5 @@
 <details open="open">
-  <summary>Table of Contents</summary>
+<h1><summary>Table of Contents</summary></h1>
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
