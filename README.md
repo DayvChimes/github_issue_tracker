@@ -30,17 +30,17 @@ The app is built entirely using the Javascript Library of React Native infused w
 
 <h1>Getting Started</h1>
 
-1. Get a github access token <a href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">Here</a>
+1. Get a github access token <a href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">here.</a>
 
 2. Clone the project repository from github to your preffered desktop folder.
 
 <pre>git clone https://github.com/DayvChimes/github_issue_tracker.git</pre>
 
-3. Install Node Modules that are crucial for the appto run
+3. Install Node Modules that are crucial for the app to run.
 
 <pre>yarn install</pre>
 
-4. Enter your API in src/graphql/client.js
+4. Enter your API in <code>src/graphql/client.js</code>
 
 <pre>const token = 'place-github-access-token-here';</pre>
 
@@ -147,13 +147,13 @@ github_issues_tracker/
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are greatly appreciated.
 
 Fork the Project
-1. Create your Feature Branch (git checkout -b feature/AmazingFeature)
-2. Commit your Changes (git commit -m 'Add some AmazingFeature')
-3. Push to the Branch (git push origin feature/AmazingFeature)
-4. Open a Pull Request, <a href="https://github.com/DayvChimes/github_issue_tracker/pulls">request pull here<a>
+1. Create your Feature Branch (git checkout -b feature/AmazingFeature).
+2. Commit your Changes (git commit -m 'Add some AmazingFeature').
+3. Push to the Branch (git push origin feature/AmazingFeature).
+4. Open a Pull Request, <a href="https://github.com/DayvChimes/github_issue_tracker/pulls">request pull here<a>.
 
 <h1>License</h1>
-Distributed under the MIT License. See LICENSE for more information.
+Distributed under the MIT License. See <code>LICENSE</code> for more information.
 
 <h1>Contact</h1>
 Your Name - <a href="https://twitter.com/dayvchimes">@dayvchimes<a> - dnjagah@gmail.com
