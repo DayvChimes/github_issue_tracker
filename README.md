@@ -1,11 +1,11 @@
-<h1>About The Project</h1>
+<h2>About The Project</h2>
 GitHub Issue Tracker is a simple mobile applicaiton made with  the React Native Javascript Library to help you track issues on your github repositories. The app is available on Google Playstore and is currently in Version: 1.0.1.
 
 <h3>Built With</h3>
 The app is built entirely using the Javascript Library of React Native infused with typescript.
 
 
-<h1>Usage</h1>
+<h2>Usage</h2>
 
 As said above the app can be used to track issues in different repositories and also issues connected to a specific user. The screenshots of the apps usage are as follows.
 
