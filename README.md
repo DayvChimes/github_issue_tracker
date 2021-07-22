@@ -68,7 +68,7 @@ Getting Started</h2>
 
 <pre>yarn install</pre>
 
-4. Enter your API in <code>src/graphql/client.js</code>
+4. Enter your access token in <code>src/graphql/client.js</code>
 
 <pre>const token = 'place-github-access-token-here';</pre>
 
