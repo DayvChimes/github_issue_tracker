@@ -8,7 +8,7 @@ As said above the app can be used to track issues in different repositories and 
 <table>
 <thead>
 <tr>
-<th align="center"><a target="_blank" rel="noopener noreferrer" href="/DayvChimes/github_issue_tracker/blob/main/screenshots/IssuesDescription.png"><img src="/DayvChimes/github_issue_tracker/blob/main/screenshots/IssuesDescription.png" width="200/" style="max-width:100%;" data-stories_space_upload_el_handled="1"></a></th>
+<th align="center"><a target="_blank" rel="noopener noreferrer" href="https://github.com/DayvChimes/github_issue_tracker/blob/main/screenshots/IssuesDescription.png"><img src="https://github.com/DayvChimes/github_issue_tracker/blob/main/screenshots/IssuesDescription.png" width="200/" style="max-width:100%;" data-stories_space_upload_el_handled="1"></a></th>
 <th align="center"><a target="_blank" rel="noopener noreferrer" href="/Paulmburu/GithubIssueTracker/blob/master/screenshots/o2.png"><img src="/Paulmburu/GithubIssueTracker/raw/master/screenshots/o2.png" width="200/" style="max-width:100%;" data-stories_space_upload_el_handled="1"></a></th>
 <th align="center"><a target="_blank" rel="noopener noreferrer" href="/Paulmburu/GithubIssueTracker/blob/master/screenshots/o3.png"><img src="/Paulmburu/GithubIssueTracker/raw/master/screenshots/o3.png" width="200/" style="max-width:100%;" data-stories_space_upload_el_handled="1"></a></th>
 <th align="center"><a target="_blank" rel="noopener noreferrer" href="/Paulmburu/GithubIssueTracker/blob/master/screenshots/o4.png"><img src="/Paulmburu/GithubIssueTracker/raw/master/screenshots/o4.png" width="200/" style="max-width:100%;" data-stories_space_upload_el_handled="1"></a></th>
