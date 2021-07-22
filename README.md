@@ -72,7 +72,7 @@ Getting Started</h2>
 
 <pre>const token = 'place-github-access-token-here';</pre>
 
-5. Start project
+5. Start project in VSCode
 
 <pre>expo start</pre>
 
