@@ -150,12 +150,12 @@ Fork the Project
 1. Create your Feature Branch (git checkout -b feature/AmazingFeature)
 2. Commit your Changes (git commit -m 'Add some AmazingFeature')
 3. Push to the Branch (git push origin feature/AmazingFeature)
-4. Open a Pull Request <a href="https://github.com/DayvChimes/github_issue_tracker/pulls">,request pull here<a>
+4. Open a Pull Request, <a href="https://github.com/DayvChimes/github_issue_tracker/pulls">request pull here<a>
 
 <h1>License</h1>
 Distributed under the MIT License. See LICENSE for more information.
 
 <h1>Contact</h1>
-Your Name - @dayvchimes - dnjagah@gmail.com
+Your Name - <a href="https://twitter.com/dayvchimes">@dayvchimes<a> - dnjagah@gmail.com
 
 Project Link: https://github.com/DayvChimes/github_issue_tracker
