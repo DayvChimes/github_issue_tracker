@@ -29,7 +29,7 @@ As said above the app can be used to track issues in different repositories and 
 </table>
 
 
-<h1>Getting Started</h1>
+<h2>Getting Started</h2>
 
 1. Get a github access token <a href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">here.</a>
 
@@ -50,7 +50,7 @@ As said above the app can be used to track issues in different repositories and 
 <pre>expo start</pre>
 
 
-<h1>File Structure</h1>
+<h2>File Structure</h2>
 <div class="snippet-clipboard-content position-relative"><pre><code>
 github_issues_tracker/
 |- .expo
@@ -144,7 +144,7 @@ github_issues_tracker/
 
   </div></div>
   
-<h1>Contributing</h1>
+<h2>Contributing</h2>
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are greatly appreciated.
 
 Fork the Project
@@ -153,10 +153,10 @@ Fork the Project
 3. Push to the Branch (git push origin feature/AmazingFeature).
 4. Open a Pull Request, <a href="https://github.com/DayvChimes/github_issue_tracker/pulls">request pull here<a>.
 
-<h1>License</h1>
+<h2>License</h2>
 Distributed under the MIT License. See <code>LICENSE</code> for more information.
 
-<h1>Contact</h1>
+<h2>Contact</h2>
 Your Name - <a href="https://twitter.com/dayvchimes">@dayvchimes<a> - dnjagah@gmail.com
 
 Project Link: https://github.com/DayvChimes/github_issue_tracker
