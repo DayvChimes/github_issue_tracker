@@ -38,9 +38,9 @@ As said above the app can be used to track issues in different repositories and 
 <thead>
 <tr>
 <th align="center"><a target="_blank" rel="noopener noreferrer" href="https://github.com/DayvChimes/github_issue_tracker/blob/main/screenshots/loginPage.png"><img src="https://github.com/DayvChimes/github_issue_tracker/blob/main/screenshots/loginPage.png" width="200/" style="max-width:100%;" data-stories_space_upload_el_handled="1"></a></th>
+<th align="center"><a target="_blank" rel="noopener noreferrer" href="https://github.com/DayvChimes/github_issue_tracker/blob/main/screenshots/LogInInstructions.png"><img src="https://github.com/DayvChimes/github_issue_tracker/blob/main/screenshots/LogInInstructions.png" width="200/" style="max-width:100%;" data-stories_space_upload_el_handled="1"></a></th>
 <th align="center"><a target="_blank" rel="noopener noreferrer" href="https://github.com/DayvChimes/github_issue_tracker/blob/main/screenshots/IssuesPageLabels.png"><img src="https://github.com/DayvChimes/github_issue_tracker/blob/main/screenshots/IssuesPageLabels.png" width="200/" style="max-width:100%;" data-stories_space_upload_el_handled="1"></a></th>
 <th align="center"><a target="_blank" rel="noopener noreferrer" href="https://github.com/DayvChimes/github_issue_tracker/blob/main/screenshots/IssuesDescription.png"><img src="https://github.com/DayvChimes/github_issue_tracker/blob/main/screenshots/IssuesDescription.png" width="200/" style="max-width:100%;" data-stories_space_upload_el_handled="1"></a></th>
-<th align="center"><a target="_blank" rel="noopener noreferrer" href="https://github.com/DayvChimes/github_issue_tracker/blob/main/screenshots/LogInInstructions.png"><img src="https://github.com/DayvChimes/github_issue_tracker/blob/main/screenshots/LogInInstructions.png" width="200/" style="max-width:100%;" data-stories_space_upload_el_handled="1"></a></th>
 </tr>
 </thead>
 <tbody>
