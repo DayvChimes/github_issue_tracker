@@ -9,8 +9,6 @@ import {
 } from "react-native";
 import Issue from "../Issue";
 import { connect } from "react-redux";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-
 import {
   getIssues,
   getMoreIssues,

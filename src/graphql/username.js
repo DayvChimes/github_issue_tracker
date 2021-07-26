@@ -1,5 +1,4 @@
 import gql from "graphql-tag";
-import graphQlClient from "../graphql/client";
 
 export const USERNAME_LOGIN = gql`
   query ($username: String!) {

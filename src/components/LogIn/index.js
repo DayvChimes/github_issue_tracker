@@ -4,7 +4,6 @@ import {
   Text,
   Image,
   Pressable,
-  ActivityIndicator,
   Modal,
 } from "react-native";
 import styles from "./styles";
@@ -18,8 +17,7 @@ import { connect } from "react-redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
 import { setStatus, setFilterby, setLabel } from "../../actions/main";
-import { Entypo } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, Entypo } from "@expo/vector-icons";
 
 const first = 10;
 const after = null;

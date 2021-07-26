@@ -66,7 +66,7 @@ Getting Started</h2>
 
 3. Install Node Modules that are crucial for the app to run.
 
-<pre>yarn install</pre>
+<pre>npm install</pre>
 
 4. Enter your access token in <code>src/graphql/client.js</code>
 
