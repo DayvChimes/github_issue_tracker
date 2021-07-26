@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   bottomspace: {
     width: "100%",
     height: 50,
-  },
+  }
 });
 
 export default styles;

@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   commentcontainer: {
     width: "94%",
-    backgroundColor: "gray",
+    backgroundColor: "#9699a3",
     alignSelf: "center",
     margin: 10,
     paddingVertical: 10,
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   commenttext: {
-    marginHorizontal: 10
+    marginHorizontal: 10,
   },
   });
 
