@@ -75,11 +75,11 @@ const IssueDescriptionPage = (props) => {
     },
     collectiveMd: {
       heading1: {
-        color: 'red'
+        color: '#0264bf'
       },
       heading2: {
-        color: 'green',
-        textAlign: "right"
+        color: '#0071b8',
+        fontSize: 18
       },
       strong: {
         color: 'blue'
@@ -106,7 +106,7 @@ const IssueDescriptionPage = (props) => {
         fontFamily: Platform.OS === 'ios' ? 'CourierPrime_400Regular' : 'Monospace',
         fontWeight: '500',
         backgroundColor: '#91bbff',
-        padding: 15,
+        padding: 10,
       },
       tableHeader: {
         backgroundColor: 'grey',

@@ -15,9 +15,13 @@ const styles = StyleSheet.create({
   usericon: {
     marginHorizontal: 10,
     marginTop: 3,
+    fontSize: 14,
+    color: 'black'
   },
   authorname: {
-    flexDirection: "row"
+    flexDirection: "row",
+    color: 'black',
+    fontSize: 16,
   },
   commenttext: {
     marginHorizontal: 10,

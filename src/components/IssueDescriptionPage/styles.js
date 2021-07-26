@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
   },
   initiator: {
     marginRight: 10,
+    marginLeft: 5,
   },
   initiatoricon:{
     marginTop: 5,
