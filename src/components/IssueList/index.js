@@ -83,11 +83,10 @@ const IssueList = (props) => {
 
   useEffect(() => {
     setLocalLoading(false);
-    setNewData(issues.edges);
     if (label !== null) {
       setLabelChosen(true);
     }
-  }, [localLoading, newData, labelChosen]);
+  }, [localLoading, labelChosen]);
 
   const onChangeSearchInput = (e) => {
     console.log(e);
