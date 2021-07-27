@@ -81,6 +81,20 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginLeft: 5,
   },
+  loading:{
+    height: Dimensions.get("window").height,
+    width: "100%",
+    flex: 1,
+    padding: 20,
+    marginTop: -100,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  subtitle:{
+    fontSize: 16,
+    alignItems: 'center',
+    marginTop: 15
+  },
   initiatoricon:{
     marginTop: 5,
   },

@@ -1,22 +1,15 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import styles from "./styles";
 import { Feather as Icon } from "@expo/vector-icons";
 import Markdown from 'react-native-markdown-package';
 import { insertMentionLinks } from "../../utils/stringUtils";
-import AppLoading from 'expo-app-loading';
 import {
   useFonts,
-  CourierPrime_400Regular,
-  CourierPrime_400Regular_Italic,
-  CourierPrime_700Bold,
-  CourierPrime_700Bold_Italic,
+  CourierPrime_400Regular as Courier,
 } from '@expo-google-fonts/courier-prime';
 import {
   SpaceMono_400Regular as Monospace,
-  SpaceMono_400Regular_Italic,
-  SpaceMono_700Bold,
-  SpaceMono_700Bold_Italic,
 } from '@expo-google-fonts/space-mono';
 
 const IssueComment = (props) => {
@@ -26,10 +19,7 @@ const IssueComment = (props) => {
   } = props.comment;
 
   let [fontsLoaded] = useFonts({
-    CourierPrime_400Regular,
-    CourierPrime_400Regular_Italic,
-    CourierPrime_700Bold,
-    CourierPrime_700Bold_Italic,
+    Courier,
     Monospace,
   });
 
@@ -74,7 +64,7 @@ const IssueComment = (props) => {
         marginRight: 10,
       },
       codeBlock: {
-        fontFamily: Platform.OS === 'ios' ? 'CourierPrime_400Regular' : 'Monospace',
+        fontFamily: Platform.OS === 'ios' ? 'Courier' : 'Monospace',
         fontWeight: '500',
         backgroundColor: '#91bbff',
         padding: 10,
@@ -86,7 +76,11 @@ const IssueComment = (props) => {
   };
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return( 
+      <View style={styles.indicator}>
+        <ActivityIndicator size="small" color="#0000ff" />
+      </View>
+      );
   } else {
   return (
     <View style={styles.commentcontainer}>

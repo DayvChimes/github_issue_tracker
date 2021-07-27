@@ -26,6 +26,13 @@ const styles = StyleSheet.create({
   commenttext: {
     marginHorizontal: 10,
   },
+  indicator: {
+    padding: 30,
+  },
+  loadingtext: {
+    fontSize: 16,
+    textAlign: "center",
+  },
   });
 
 export default styles;

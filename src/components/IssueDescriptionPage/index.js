@@ -1,7 +1,16 @@
 import React from "react";
-import { View, Text, ScrollView, FlatList, Linking, Platform } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  FlatList,
+  Linking,
+  Platform,
+  ActivityIndicator,
+  VirtualizedList,
+} from "react-native";
 import styles from "./styles";
-import Markdown from 'react-native-markdown-package';
+import Markdown from "react-native-markdown-package";
 import { Feather as Icon } from "@expo/vector-icons";
 import IssueComment from "../IssueComment";
 import "intl";
@@ -9,21 +18,11 @@ import "intl/locale-data/jsonp/en";
 import Label from "../Label";
 import Status from "../Status";
 import { insertMentionLinks } from "../../utils/stringUtils";
-import AppLoading from 'expo-app-loading';
 import {
   useFonts,
-  CourierPrime_400Regular,
-  CourierPrime_400Regular_Italic,
-  CourierPrime_700Bold,
-  CourierPrime_700Bold_Italic,
-} from '@expo-google-fonts/courier-prime';
-import {
-  SpaceMono_400Regular as Monospace,
-  SpaceMono_400Regular_Italic,
-  SpaceMono_700Bold,
-  SpaceMono_700Bold_Italic,
-} from '@expo-google-fonts/space-mono';
-
+  CourierPrime_400Regular as Courier,
+} from "@expo-google-fonts/courier-prime";
+import { SpaceMono_400Regular as Monospace } from "@expo-google-fonts/space-mono";
 
 const IssueDescriptionPage = (props) => {
   const { navigation } = props;
@@ -44,13 +43,9 @@ const IssueDescriptionPage = (props) => {
   } = params;
 
   let [fontsLoaded] = useFonts({
-    CourierPrime_400Regular,
-    CourierPrime_400Regular_Italic,
-    CourierPrime_700Bold,
-    CourierPrime_700Bold_Italic,
+    Courier,
     Monospace,
   });
-
 
   if ("__setDefaultTimeZone" in Intl.DateTimeFormat) {
     Intl.DateTimeFormat.__setDefaultTimeZone("America/Los_Angeles");
@@ -62,141 +57,152 @@ const IssueDescriptionPage = (props) => {
   let da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(issuedate);
   issuedate = `${da}-${mo}-${ye}`;
 
+  const getItem = (data, index) => ({
+    id: Math.random().toString(12).substring(0),
+    title: `Item ${++index}`,
+  });
+
+  const getItemCount = (data) => 1;
 
   const markdownStyle = {
     singleLineMd: {
       text: {
-        color: 'blue',
-        textAlign: "right"
+        color: "blue",
+        textAlign: "right",
       },
       view: {
-        alignSelf: 'stretch',
-      }
+        alignSelf: "stretch",
+      },
     },
     collectiveMd: {
       heading1: {
-        color: '#0264bf'
+        color: "#0264bf",
       },
       heading2: {
-        color: '#0071b8',
-        fontSize: 18
+        color: "#0071b8",
+        fontSize: 18,
       },
       strong: {
-        color: 'blue'
+        color: "blue",
       },
       em: {
-        color: 'cyan'
+        color: "cyan",
       },
       text: {
-        color: 'black',
+        color: "black",
       },
       blockQuoteText: {
-        color: 'grey'
+        color: "grey",
       },
       blockQuoteSection: {
-        flexDirection: 'row',
+        flexDirection: "row",
       },
       blockQuoteSectionBar: {
         width: 3,
         height: null,
-        backgroundColor: '#DDDDDD',
+        backgroundColor: "#DDDDDD",
         marginRight: 15,
       },
       codeBlock: {
-        fontFamily: Platform.OS === 'ios' ? 'CourierPrime_400Regular' : 'Monospace',
-        fontWeight: '500',
-        backgroundColor: '#91bbff',
+        fontFamily: Platform.OS === "ios" ? "Courier" : "Monospace",
+        fontWeight: "500",
+        backgroundColor: "#91bbff",
         padding: 10,
       },
       tableHeader: {
-        backgroundColor: 'grey',
+        backgroundColor: "grey",
       },
-    }
+    },
   };
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" color="#000FFF" />
+        <Text style={styles.subtitle}>Loading Issue...</Text>
+      </View>
+    );
   } else {
-  return (
-    <View style={styles.page}>
-      <ScrollView style={styles.scroller}>
-        <View style={styles.toppage}>
-          <Text style={styles.title}> {title} </Text>
-          <View style={styles.statuscontainer}>
-            <Status status={state} navigation={navigation} />
-          </View>
-          <View style={styles.statusrepocontainer}>
-            <View style={styles.issuenumbercontainer}>
-              <Text style={styles.issuenumber}> #{number}</Text>
+    return (
+      <View style={styles.page}>
+        <ScrollView style={styles.scroller}>
+          <View style={styles.toppage}>
+            <Text style={styles.title}> {title} </Text>
+            <View style={styles.statuscontainer}>
+              <Status status={state} navigation={navigation} />
             </View>
-            <View style={styles.repocontainer}>
-              <View style={styles.repositorycontainer}>
-                <Icon name="git-branch" style={styles.repoicon} />
-                <Text style={styles.repository}> {name}</Text>
+            <View style={styles.statusrepocontainer}>
+              <View style={styles.issuenumbercontainer}>
+                <Text style={styles.issuenumber}> #{number}</Text>
+              </View>
+              <View style={styles.repocontainer}>
+                <View style={styles.repositorycontainer}>
+                  <Icon name="git-branch" style={styles.repoicon} />
+                  <Text style={styles.repository}> {name}</Text>
+                </View>
               </View>
             </View>
           </View>
-        </View>
-        <View style={styles.midpage}>
-          <View style={styles.decriptioncontainer}>
-            <View style={styles.description}>
-            <Markdown 
-              styles={markdownStyle.collectiveMd} 
-              onLink={(url) => Linking.openURL(url)}
-            >         
-              {insertMentionLinks(body)}
-            </Markdown>
+          <View style={styles.midpage}>
+            <View style={styles.decriptioncontainer}>
+              <View style={styles.description}>
+                <Markdown
+                  styles={markdownStyle.collectiveMd}
+                  onLink={(url) => Linking.openURL(url)}
+                >
+                  {insertMentionLinks(body)}
+                </Markdown>
+              </View>
+            </View>
+            <View style={styles.dateinitiatorcontainer}>
+              <View style={styles.datecontainer}>
+                <Text style={styles.date}>{issuedate}</Text>
+              </View>
+              <View style={styles.initiatorcontainer}>
+                <Icon name="user" style={styles.initiatoricon} />
+                <Text style={styles.initiator}>{login}</Text>
+              </View>
+            </View>
+            <View style={styles.labelcontainer}>
+              {nodes.length !== 0 ? (
+                <FlatList
+                  data={nodes}
+                  horizontal
+                  renderItem={({ item }) => (
+                    <Label label={item} navigation={navigation} />
+                  )}
+                  keyExtractor={(item, index) => {
+                    return item.id;
+                  }}
+                  initialNumToRender={10}
+                  showsVerticalScrollIndicator={false}
+                  showsHorizontalScrollIndicator={false}
+                />
+              ) : null}
             </View>
           </View>
-          <View style={styles.dateinitiatorcontainer}>
-            <View style={styles.datecontainer}>
-              <Text style={styles.date}>{issuedate}</Text>
+          <View style={styles.bottompage}>
+            <View style={styles.commenttitlecontainer}>
+              <Text styles={styles.commenttitle}> Comments </Text>
+              <Icon name="message-circle" style={styles.commenticon} />
             </View>
-            <View style={styles.initiatorcontainer}>
-              <Icon name="user" style={styles.initiatoricon} />
-              <Text style={styles.initiator}>{login}</Text>
-            </View>
-          </View>
-          <View style={styles.labelcontainer}>
-            {nodes.length !== 0 ? (
-              <FlatList
-                data={nodes}
-                horizontal
-                renderItem={({ item }) => (
-                  <Label label={item} navigation={navigation} />
-                )}
-                keyExtractor={(item, index) => {
-                  return item.id;
-                }}
-                onMomentumScrollBegin={() => {
-                  onEndReachedCalledDuringMomentum = false;
-                }}
-                initialNumToRender={10}
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-              />
-            ) : null}
-          </View>
-        </View>
-        <View style={styles.bottompage}>
-          <View style={styles.commenttitlecontainer}>
-            <Text styles={styles.commenttitle}> Comments </Text>
-            <Icon name="message-circle" style={styles.commenticon} />
-          </View>
-          {edges.map((commentlist) => {
-            return (
+            {console.log("*******************")}
+            {console.log("New Comment Section")}
+            {console.log("*******************")}
+            {edges.map((commentlist) => {
+              return (                
               <View key={commentlist.node.id}>
-                <IssueComment comment={commentlist.node} />
+                {console.log(commentlist.node.id)}            
+                <IssueComment comment={commentlist.node}/>
               </View>
-            );
-          })}
-        </View>
-        <View style={styles.bottomspace}></View>
-      </ScrollView>
-    </View>
-  );
+              );
+            })}
+          </View>
+          <View style={styles.bottomspace}></View>
+        </ScrollView>
+      </View>
+    );
   }
 };
 
 export default IssueDescriptionPage;
-
