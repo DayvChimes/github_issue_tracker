@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 20,
     alignItems: "center",
-    //marginTop: "5%",
+    marginTop: 10,
   },
   inputcontainer: {
     flexDirection: "column",

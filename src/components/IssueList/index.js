@@ -6,6 +6,7 @@ import {
   TextInput,
   ActivityIndicator,
   ScrollView,
+  Pressable,
 } from "react-native";
 import Issue from "../Issue";
 import { connect } from "react-redux";
@@ -74,14 +75,11 @@ const IssueList = (props) => {
   const labelnew = null;
   const statusnew = null;
 
-
+  const backgroundColor = "#171A20CC";
+  const textColor = "#FFFFFF";
 
   const [newData = issues.edges, setNewData] = useState();
-
-  //const [searchQuery, setQuery] = useState("");
-
-  //const [keyboardEdit, setKeyboardEdit] = useState(false);
-
+  
   const [labelChosen, setLabelChosen] = useState(false);
   console.log("LabelChosen value in IssueList is: " + labelChosen);
 
@@ -96,8 +94,7 @@ const IssueList = (props) => {
 
   const onChangeSearchInput = (e) => {
     console.log(e);
-    //setQuery(e);
-    //state.query = e;
+    
     debouncedSearch(e);
   };
 
@@ -336,13 +333,9 @@ const IssueList = (props) => {
         <View style={styles.searchcontainer}>
           <TextInput
             autoCapitalize="none"
-            autoCorrect={false}
-            //autoFocus={true}
-            //onPressIn={() => {setKeyboardEdit(true)}}
-            //onPressOut={() => {setKeyboardEdit(false)}}
+            autoCorrect={false}            
             onChangeText={onChangeSearchInput}
-            status="info"
-            //value={state.query}
+            status="info"            
             placeholder="Search"
             clearButtonMode="always"
             style={styles.searchinput}
