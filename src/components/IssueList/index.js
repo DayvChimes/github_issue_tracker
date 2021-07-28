@@ -74,7 +74,13 @@ const IssueList = (props) => {
   const labelnew = null;
   const statusnew = null;
 
+
+
   const [newData = issues.edges, setNewData] = useState();
+
+  //const [searchQuery, setQuery] = useState("");
+
+  //const [keyboardEdit, setKeyboardEdit] = useState(false);
 
   const [labelChosen, setLabelChosen] = useState(false);
   console.log("LabelChosen value in IssueList is: " + labelChosen);
@@ -90,11 +96,13 @@ const IssueList = (props) => {
 
   const onChangeSearchInput = (e) => {
     console.log(e);
+    //setQuery(e);
+    //state.query = e;
     debouncedSearch(e);
   };
 
   const debouncedSearch = debounce(function (query) {
-    setLocalLoading(true);
+    setLocalLoading(true);    
     const data = filter(state.fullData.issues.edges, (issue) => {
       return contains(issue, query);
     });
@@ -329,8 +337,12 @@ const IssueList = (props) => {
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
+            //autoFocus={true}
+            //onPressIn={() => {setKeyboardEdit(true)}}
+            //onPressOut={() => {setKeyboardEdit(false)}}
             onChangeText={onChangeSearchInput}
             status="info"
+            //value={state.query}
             placeholder="Search"
             clearButtonMode="always"
             style={styles.searchinput}
