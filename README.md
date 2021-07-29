@@ -56,7 +56,7 @@ As said above the app can be used to track issues in different repositories and 
 
 <h2>
 <a id="user-content-built-with" class="anchor" aria-hidden="true" href="#getting-started"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>
-Getting Started</h2>
+These project assumes that you've already installed node.js in your dev env. If not yet follow this link <a href="https://nodejs.org/en/download">https://nodejs.org/en/download</a> to install the LTS version before going any further.
 
 1. Get a github access token <a href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">here</a>.
 
@@ -65,6 +65,11 @@ Getting Started</h2>
 <pre>git clone https://github.com/DayvChimes/github_issue_tracker.git</pre>
 
 3. Install Node Modules that are crucial for the app to run.
+If you've not already installed the yarn cli in your terminal you will first need to install it globally by using npm install.
+
+<pre>npm install --global yarn</pre>
+
+Then run the following code in the comand-line to install the necessary dependencies for your project to build successfully.
 
 <pre>yarn install</pre>
 
