@@ -61,10 +61,12 @@ These project assumes that you've already installed node.js in your dev env. If 
 1. Get a github access token <a href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">here</a>.
 
 2. Clone the project repository from github to your preffered desktop folder.
-  </div></div>
+	
 <pre>git clone https://github.com/DayvChimes/github_issue_tracker.git</pre>
-  </div></div>
-3. Install Node Modules that are crucial for the app to run. If you've not already installed the yarn cli in your terminal you will first need to install it globally by using npm install.
+  
+3. Install Node Modules that are crucial for the app to run.
+	</div></div>
+If you've not already installed the yarn cli in your terminal you will first need to install it globally by using npm install.
 
 <pre>npm install --global yarn</pre>
 
