@@ -21,7 +21,7 @@
     },
     "android": {
       "package": "dv.githubissuetracker",
-      "enableDangerousExperimentalLeanBuilds": true,
+      "enableDangerousExperimentalLeanBuilds": false,
       "versionCode": 5,
       "adaptiveIcon": {
         "foregroundImage": "./assets/Icon_git_1020x1020.png",
