@@ -6,13 +6,16 @@ import {
   concat,
 } from "@apollo/client";
 import * as UserUtils from "../utils/user";
+require('dotenv').config();
+
+const AUTH = process.env.GITHUB_API_TOKEN;
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
   uri: "https://api.github.com/graphql",
 });
 
-const token = "place_github_token_here";
+const token = AUTH;
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
