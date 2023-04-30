@@ -32,7 +32,9 @@ const Issue = (props) => {
 
 
   const handleClick = () => {
-    navigation.navigate("IssueDescription", issue);
+    navigation.navigate("IssueDescription", {
+      Issue: issue,
+    });
   };
  
 

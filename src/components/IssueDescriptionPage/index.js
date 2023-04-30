@@ -24,10 +24,11 @@ import {
 } from "@expo-google-fonts/courier-prime";
 import { SpaceMono_400Regular as Monospace } from "@expo-google-fonts/space-mono";
 
-const IssueDescriptionPage = (props) => {
-  const { navigation } = props;
+const IssueDescriptionPage = (route, navigation) => {
 
-  const { params } = navigation.state;
+  //const { Issue } = route.params;
+
+  console.log(route.params);
 
   const {
     author: { login },
@@ -40,7 +41,7 @@ const IssueDescriptionPage = (props) => {
     number,
     body,
     comments: { edges },
-  } = params;
+  } = Issue;
 
   let [fontsLoaded] = useFonts({
     Courier,
