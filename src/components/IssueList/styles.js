@@ -115,13 +115,24 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     //backgroundColor: "blue",
   },
+  iconcontainer: {
+    width: "30%",
+    flexDirection: "row",
+    paddingTop: 5,
+    justifyContent: "flex-end",
+    //backgroundColor: "blue",
+  },
   settings: {
-    alignSelf: "center",
-    marginRight: 10,
+    padding: 5,
+    paddingRight: 5,
+  },
+  print: {
+    padding: 5,
+    paddingRight: 15,
   },
   datecontainer: {
     padding: 5,
-    width: "88%",
+    width: "68%",
   },
   present: {
     fontSize: 20,
@@ -208,6 +219,23 @@ const styles = StyleSheet.create({
   containerlogin: {
     width: "100%",
     padding: 20,
+  },
+  lmbutton:{
+    height: 40,
+    justifyContent: 'center',
+    borderRadius: 20,
+    alignItems: 'center',
+  },
+  lmcontainer:{
+    width: '100%',
+    paddingHorizontal: 20,
+    marginTop: 20,
+  },
+  lmsubtitle:{
+    fontSize: 16,
+    alignItems: 'center',
+    textTransform: 'uppercase',
+    //fontWeight: '500',
   },
 });
 

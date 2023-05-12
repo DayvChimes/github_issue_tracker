@@ -1,11 +1,11 @@
-import contants from "../constants";
+import constants from "../constants";
 import graphQlClient from "../graphql/client";
 import * as UserUtils from "../utils/user";
 import { setLoading } from "./main";
 import * as RepositoryIssues from "../graphql/repository";
 
 const setRepository = (username, repository) => ({
-  type: contants.repository.SET_REPOSITORY,
+  type: constants.repository.SET_REPOSITORY,
   payload: {
     username,
     repository,
@@ -13,26 +13,31 @@ const setRepository = (username, repository) => ({
 });
 
 const setRepositoryIssues = (issues) => ({
-  type: contants.repository.SET_ISSUES,
+  type: constants.repository.SET_ISSUES,
   payload: issues,
+});
+
+const setTotalRepositoryIssues = (repository) => ({
+  type: constants.repository.SET_TOTAL_ISSUES,
+  payload: repository,
 });
 
 const setMoreRepoIssues = (issues) => {
   return {
-    type: contants.repository.SET_MORE_ISSUES,
+    type: constants.repository.SET_MORE_ISSUES,
     payload: issues,
   };
 };
 
 export const refreshRepository = () => {
   return {
-    type: contants.repository.REFRESH,
+    type: constants.repository.REFRESH,
   };
 };
 
 export const repositoryRequest = (request) => {
   return {
-    type: contants.repository.REQUEST,
+    type: constants.repository.REQUEST,
     payload: request,
   };
 };
@@ -60,6 +65,7 @@ export const getRepositoryIssues =
             setRepository(repository["owner"]["login"], repository["name"])
           );
           dispatch(setRepositoryIssues(repository["issues"]));
+          dispatch(getTotalRepoIssues(repository["owner"]["login"], repository["name"]));
         }
       })
       .catch((error) => {
@@ -164,6 +170,37 @@ export const getFilteredRepoIssues =
         } = result;
 
           dispatch(setRepositoryIssues(repository["issues"]));
+      })
+      .catch((error) => {
+        console.log("error", error);
+      })
+      .finally(() => {
+        
+        dispatch(setLoading(false));
+      });
+  };
+
+
+  export const getTotalRepoIssues =
+  (username, repository) =>
+  (dispatch, _getState) => {
+    dispatch(setLoading(true));
+
+    graphQlClient
+      .query({
+        query: RepositoryIssues.REPOSITORY_TOTAL_ISSUES,
+        variables: {
+          username,
+          repository
+        },
+      })
+      .then((result) => {
+        const {
+          data: { repository },
+        } = result;
+
+          dispatch(setTotalRepositoryIssues(repository));
+          console.log(repository);
       })
       .catch((error) => {
         console.log("error", error);

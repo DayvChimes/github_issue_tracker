@@ -4,6 +4,7 @@ import {
   Text,
   Image,
   Pressable,
+  Button,
   Modal,
 } from "react-native";
 import styles from "./styles";
@@ -46,11 +47,12 @@ const LogIn = (props) => {
     setNewStatus(statusnew);
     setRepoRequest(false);
     setUserRequest(false);
+    console.log(values);
     values.repository == ""
-      ? props.getUserIssues(values.username, first, after, navigation)
+      ? props.getUserIssues(values.username.trim(), first, after, navigation)
       : props.getRepoIssues(
-          values.username,
-          values.repository,
+          values.username.trim(),
+          values.repository.trim(),
           first,
           after,
           navigation
@@ -121,7 +123,7 @@ const LogIn = (props) => {
               <Text style={styles.instructions}>
               {"\n"}
                 <Entypo name="dot-single" size={14} color="black" />
-                No need to include uppercase letters in the names.
+                Disclaimer: The names don't have to be lowercase.
               </Text>
             </View>
           </View>
@@ -160,6 +162,14 @@ const LogIn = (props) => {
                 />
               </View>
               <View style={styles.container}>
+                <Button
+                  style={[styles.button]}
+                  onPress={props.handleSubmit}
+                  title="View"
+                >
+                </Button>
+              </View>
+              {/* <View style={styles.container}>
                 <Pressable
                   style={[styles.button, { backgroundColor: backgroundColor }]}
                   onPress={props.handleSubmit}
@@ -168,7 +178,7 @@ const LogIn = (props) => {
                     View
                   </Text>
                 </Pressable>
-              </View>
+              </View> */}
             </View>
           )}
         </Formik>

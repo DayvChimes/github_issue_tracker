@@ -242,3 +242,24 @@ export const REPOSITORY_ISSUES_LABELS = gql`
     }
   }
 `;
+
+
+export const REPOSITORY_TOTAL_ISSUES = gql`
+  query (
+    $username: String!
+    $repository: String!
+  ) 
+  {
+    repository(owner: $username, name: $repository) {
+      issues{
+      totalCount
+    }
+    openIssues: issues(states: OPEN) {
+      totalCount
+    }
+    closedIssues: issues(states: CLOSED) {
+      totalCount
+    }
+    }
+  }
+`;

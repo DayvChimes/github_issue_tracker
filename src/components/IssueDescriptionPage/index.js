@@ -26,9 +26,9 @@ import { SpaceMono_400Regular as Monospace } from "@expo-google-fonts/space-mono
 
 const IssueDescriptionPage = (route, navigation) => {
 
-  //const { Issue } = route.params;
+  console.log(route.route.params);
+  const { Issue } = route.route.params;
 
-  console.log(route.params);
 
   const {
     author: { login },

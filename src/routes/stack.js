@@ -11,11 +11,13 @@ const Stack = createStackNavigator();
 
 function Navigator() {
   return (
+    <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen name="LogIn" component={LogIn} />
       <Stack.Screen name="IssuePage" component={IssuePage} />
       <Stack.Screen name="IssueDescription" component={IssueDescription} />
     </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

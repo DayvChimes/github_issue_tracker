@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import generatePDF from "../../utils/generatePDF";
 import {
   View,
   Text,
   FlatList,
+  Button,
   TextInput,
   ActivityIndicator,
   ScrollView,
@@ -15,12 +17,14 @@ import {
   getMoreIssues,
   getFilteredIssues,
   getUserIssuesStatus,
+  getTotalIssues,
 } from "../../actions/username";
 import {
   getMoreRepoIssues,
   getRepositoryIssues,
   getFilteredRepoIssues,
   getRepoIssuesLabels,
+  getTotalRepoIssues,
 } from "../../actions/repository";
 import { getSearchIssues, setSearch } from "../../actions/search";
 import { setFilterby, setLabel } from "../../actions/main";
@@ -30,6 +34,7 @@ import { debounce } from "lodash";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import styles from "./styles";
+import repository from "../../reducers/repository";
 
 const IssueList = (props) => {
   const {
@@ -57,6 +62,10 @@ const IssueList = (props) => {
     setLabelText,
     getRepositoryIssuesLabels,
     getUsernameIssuesStatus,
+    getTotalUserIssues,
+    getTotalRepositoryIssues,
+    userTotalIssues,
+    repoTotalIssues
   } = props;
 
   const state = {
@@ -67,6 +76,7 @@ const IssueList = (props) => {
     search: false,
     refreshing: false,
   };
+
 
   const first = 10;
   const type = "ISSUE";
@@ -172,6 +182,13 @@ const IssueList = (props) => {
   var month = now.getMonthName();
   var date = new Date().getDate();
 
+  //Getting the total number of issues together with the open and closed issue count
+  //for both users an repo.
+
+
+
+
+
   const handleLoadMore = () => {
     afterUser = issues.pageInfo.endCursor;
     Search("");
@@ -221,6 +238,23 @@ const IssueList = (props) => {
       getRepoIssues(repouser, repository, first, after, navigation);
     }
   };
+
+
+  const handlePDFgenerate = () =>{
+    if (userrequest == true) {
+      generatePDF(
+                  userTotalIssues.issues.totalCount, 
+                  userTotalIssues.openIssues.totalCount, 
+                  userTotalIssues.closedIssues.totalCount
+                  );
+    } else {
+      generatePDF(
+                  repoTotalIssues.issues.totalCount, 
+                  repoTotalIssues.openIssues.totalCount, 
+                  repoTotalIssues.closedIssues.totalCount
+                  );
+    }
+  }
 
   const filterType = (item) => {
     console.log("LabelChosen value in Filter is: " + labelChosen);
@@ -323,12 +357,20 @@ const IssueList = (props) => {
               {day}, {date} {month}
             </Text>
           </View>
+          <View style={styles.iconcontainer}>
+          <MaterialIcons
+            name="print"
+            size={30}
+            style={styles.print}
+            onPress={() => handlePDFgenerate() }
+          />
           <MaterialIcons
             name="settings"
             size={30}
             style={styles.settings}
             onPress={() => navigation.pop()}
           />
+          </View>
         </View>
         <View style={styles.searchcontainer}>
           <TextInput
@@ -387,7 +429,15 @@ const IssueList = (props) => {
   const getFooter = () => {
     return (
       <View style={styles.loading}>
-        {localLoading == false ? null : (
+        {localLoading == false ? (
+        <View style={styles.lmcontainer}>
+          <Button
+            style={[styles.lmbutton, { backgroundColor: "#00598C" }]}
+            onPress={ () => handleLoadMore()}
+            title ="Load More">
+          </Button>
+        </View>
+              ) : (
           <View style={styles.indicator}>
             <ActivityIndicator size="large" color="#0000ff" />
             <Text style={[styles.loadingtext]}>Fetching Issues...</Text>
@@ -411,10 +461,10 @@ const IssueList = (props) => {
           onEndReachedCalledDuringMomentum = false;
         }}
         onEndReached={() => {
-          if (!onEndReachedCalledDuringMomentum) {
-            handleLoadMore();
-            onEndReachedCalledDuringMomentum = true;
-          }
+          // if (!onEndReachedCalledDuringMomentum) {
+          //   handleLoadMore();
+          //   onEndReachedCalledDuringMomentum = true;
+          // }
         }}
         onEndReachedThreshold={0.1}
         initialNumToRender={50}
@@ -442,6 +492,8 @@ const mapStateToProps = (state) => {
     repouser: state.repository.repository.username,
     moreIssues: state.username.moreIssues,
     repoIssues: state.repository.repositoryIssues,
+    userTotalIssues: state.username.totalIssues,
+    repoTotalIssues: state.repository.totalIssues,
     issues:
       state.username.userRequest == true
         ? state.username.userIssues
@@ -508,6 +560,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     setLabelText: (label) => {
       dispatch(setLabel(label));
+    },
+    getTotalUserIssues: (username) => {
+      dispatch(getTotalIssues(username));
+    },
+    getTotalRepositoryIssues: (username, repository) => {
+      dispatch(getTotalRepoIssues(username, repository));
     },
   };
 };

@@ -1,25 +1,25 @@
-import contants from "../constants";
+import constants from "../constants";
 import * as Search from "../graphql/search";
 import { setLoading} from "./main";
 import graphQlClient from "../graphql/client";
 
 export const setSearch = (search) => {
   return {
-    type: contants.search.SET_SEARCH,
+    type: constants.search.SET_SEARCH,
     payload: search,
   };
 };
 
 const setIssues = (issues) => {
   return {
-    type: contants.search.SET_ISSUES,
+    type: constants.search.SET_ISSUES,
     payload: issues,
   };
 };
 
 export const setSearchRequest = (request) => {
   return {
-    type: contants.search.REQUEST,
+    type: constants.search.REQUEST,
     payload: request,
   };
 };

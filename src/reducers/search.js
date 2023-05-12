@@ -1,4 +1,4 @@
-import contants from "../constants";
+import constants from "../constants";
 
 const initialState = {
   search: "",
@@ -8,11 +8,11 @@ const initialState = {
 
 const search = (state = initialState, action) => {
   switch (action.type) {
-    case contants.search.SET_SEARCH:
+    case constants.search.SET_SEARCH:
       return { ...state, search: action.payload };
-    case contants.username.SET_ISSUES:
+    case constants.username.SET_ISSUES:
       return { ...state, searchIssues: action.payload };
-    case contants.username.REQUEST:
+    case constants.username.REQUEST:
       return { ...state, searchRequest: action.payload };
     default:
       return state;

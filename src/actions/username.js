@@ -1,4 +1,4 @@
-import contants from "../constants";
+import constants from "../constants";
 import * as UserUtils from "../utils/user";
 import * as UsernameIssues from "../graphql/username";
 import { setLoading } from "./main";
@@ -6,41 +6,48 @@ import graphQlClient from "../graphql/client";
 
 const setUser = (username) => {
   return {
-    type: contants.username.SET_USER,
+    type: constants.username.SET_USER,
     payload: username,
   };
 };
 
 const setIssues = (issues) => {
   return {
-    type: contants.username.SET_ISSUES,
+    type: constants.username.SET_ISSUES,
     payload: issues,
+  };
+};
+
+const setTotalIssues = (user) => {
+  return {
+    type: constants.username.SET_TOTAL_ISSUES,
+    payload: user,
   };
 };
 
 const setMoreIssues = (issues) => {
   return {
-    type: contants.username.SET_MORE_ISSUES,
+    type: constants.username.SET_MORE_ISSUES,
     payload: issues,
   };
 };
 
 export const setIssuesEdges = (issues) => {
   return {
-    type: contants.username.SET_ISSUES_EDGES,
+    type: constants.username.SET_ISSUES_EDGES,
     payload: issues,
   };
 };
 
 export const refreshUsername = () => {
   return {
-    type: contants.username.REFRESH
+    type: constants.username.REFRESH
   };
 };
 
 export const userRequest = (request) => {
   return {
-    type: contants.username.REQUEST,
+    type: constants.username.REQUEST,
     payload: request,
   };
 };
@@ -67,11 +74,13 @@ export const getIssues = (username, first, after, navigation) => (dispatch, _get
       else{ 
       dispatch(setUser(user["login"]));
       dispatch(setIssues(user["issues"]));
+      dispatch(getTotalIssues(user["login"]));
       }
     })
       
     .catch((error) => {
       console.log("error", error);
+      console.log(username + " " + first + " " + after);
       navigation.pop();
       alert("Input the Correct Names of the Username and/or Repository", undefined, 2);      
     })
@@ -158,3 +167,27 @@ export const getMoreIssues =
   };
  
  
+
+  export const getTotalIssues = (username) => (dispatch, _getState) => {
+    dispatch(setLoading(true));
+
+    graphQlClient
+      .query({
+        query: UsernameIssues.USERNAME_TOTAL_ISSUES,
+        variables: { username }, //remember to input variables for request
+      })
+      .then((result) => {
+        const {
+          data: { user },
+        } = result;
+        
+        dispatch(setTotalIssues(user));
+        console.log(user);
+      })        
+      .catch((error) => {
+        console.log("error", error);     
+      })
+      .finally(() => {
+        dispatch(setLoading(false));
+      });
+  };

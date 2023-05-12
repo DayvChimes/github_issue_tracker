@@ -225,3 +225,23 @@ export const USERNAME_ISSUES_STATUS = gql`
     }
   }
 `;
+
+
+export const USERNAME_TOTAL_ISSUES = gql`
+  query (
+    $username: String!
+  ) 
+  {
+    user(login: $username) {
+      issues{
+      totalCount
+    }
+    openIssues: issues(states: OPEN) {
+      totalCount
+    }
+    closedIssues: issues(states: CLOSED) {
+      totalCount
+    }
+    }
+  }
+`;
