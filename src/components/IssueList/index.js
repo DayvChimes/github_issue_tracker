@@ -245,13 +245,17 @@ const IssueList = (props) => {
       generatePDF(
                   userTotalIssues.issues.totalCount, 
                   userTotalIssues.openIssues.totalCount, 
-                  userTotalIssues.closedIssues.totalCount
+                  userTotalIssues.closedIssues.totalCount,
+                  username,
+                  ""
                   );
     } else {
       generatePDF(
                   repoTotalIssues.issues.totalCount, 
                   repoTotalIssues.openIssues.totalCount, 
-                  repoTotalIssues.closedIssues.totalCount
+                  repoTotalIssues.closedIssues.totalCount,
+                  repouser,
+                  repository
                   );
     }
   }
