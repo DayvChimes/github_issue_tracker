@@ -12,15 +12,7 @@ const generatePDF = async (issue, open, closed, username, repository) => {
   const user = username.charAt(0).toUpperCase() + username.slice(1);
   const repo = repository.charAt(0).toUpperCase() + repository.slice(1);
 
-let creds = () => {
- if (repo == "") {
-  `<h2>User = ${user}</h2>`
-  }
-  else {
-    `<h2>User: ${user}</h2> 
-    <h2>Repository: ${repo}</h2>`
-  }
-}
+
 
 const htmlTemplate = `
     <!DOCTYPE html>
