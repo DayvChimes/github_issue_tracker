@@ -114,8 +114,8 @@ const htmlTemplate = `
 
           <div class="container">
 
-          ${repo == "" ? `<h2>User = ${user}</h2>` :
-          `<h2>User: ${user}</h2> 
+          ${repo == "" ? `<h2>User: ${user}</h2>` :
+          `<h2>Owner: ${user}</h2> 
            <h2>Repository: ${repo}</h2>`}
 
 
@@ -140,7 +140,7 @@ const htmlTemplate = `
 
             
           <p> ${repo == "" ? 
-            `<text>This is a report that shows the total number of issues that the user <strong>${user}</strong> has submitted into different repositories</text>` :
+            `<text>This is a report that shows the total number of issues that the user <strong>${user}</strong> has opened in different repositories</text>` :
             `<text>This is a report that shows the total number of issues found within the repository <strong>${repo}</strong></text>`}
           </p>
 

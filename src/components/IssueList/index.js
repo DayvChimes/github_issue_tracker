@@ -34,7 +34,6 @@ import { debounce } from "lodash";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import styles from "./styles";
-import repository from "../../reducers/repository";
 
 const IssueList = (props) => {
   const {
@@ -184,9 +183,6 @@ const IssueList = (props) => {
 
   //Getting the total number of issues together with the open and closed issue count
   //for both users an repo.
-
-
-
 
 
   const handleLoadMore = () => {
