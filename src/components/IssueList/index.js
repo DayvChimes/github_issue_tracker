@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import generatePDF from "../../utils/generatePDF";
 import {
   View,
   Text,
@@ -27,17 +26,19 @@ import {
   getTotalRepoIssues,
 } from "../../actions/repository";
 import { getSearchIssues, setSearch } from "../../actions/search";
-import { setFilterby, setLabel } from "../../actions/main";
+import { setFilterby, setLabel, setLoading} from "../../actions/main";
 import { Picker } from "@react-native-picker/picker";
 import filter from "lodash.filter";
 import { debounce } from "lodash";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import styles from "./styles";
+import generatePDF from "../../utils/generatePDF";
 
 const IssueList = (props) => {
   const {
     loading,
+    pdfUri,
     status,
     Search,
     label,
@@ -64,7 +65,8 @@ const IssueList = (props) => {
     getTotalUserIssues,
     getTotalRepositoryIssues,
     userTotalIssues,
-    repoTotalIssues
+    repoTotalIssues,
+    setStateLoading
   } = props;
 
   const state = {
@@ -87,19 +89,29 @@ const IssueList = (props) => {
   const backgroundColor = "#171A20CC";
   const textColor = "#FFFFFF";
 
+  const [pdfLoading, setPDFLoading] = useState(false);
+
+  console.log("this is pdfloading outside of useeffect " + pdfLoading)
+
   const [newData = issues.edges, setNewData] = useState();
   
   const [labelChosen, setLabelChosen] = useState(false);
-  console.log("LabelChosen value in IssueList is: " + labelChosen);
 
   const [localLoading, setLocalLoading] = useState(false);
 
   useEffect(() => {
-    setLocalLoading(false);
+    setTimeout(() => {
+      setPDFLoading(false);
+    }, 4000);
+    setTimeout(() => {
+      setLocalLoading(false);
+    }, 1000);
+    console.log("***New pdfuri***");
+    console.log("this is pdfuri: "+ pdfUri);
     if (label !== null) {
       setLabelChosen(true);
     }
-  }, [localLoading, labelChosen]);
+  }, [localLoading, labelChosen, pdfLoading]);
 
   const onChangeSearchInput = (e) => {
     console.log(e);
@@ -108,7 +120,7 @@ const IssueList = (props) => {
   };
 
   const debouncedSearch = debounce(function (query) {
-    setLocalLoading(true);    
+    setLocalLoading((current) => !current);    
     const data = filter(state.fullData.issues.edges, (issue) => {
       return contains(issue, query);
     });
@@ -188,7 +200,7 @@ const IssueList = (props) => {
   const handleLoadMore = () => {
     afterUser = issues.pageInfo.endCursor;
     Search("");
-    setLocalLoading(true);
+    setLocalLoading((current) => !current);
     setNewData(issues.edges);
     console.log("Userrequest in LoadMore is: " + userrequest);
     console.log("Reporequest in LoadMore is: " + reporequest);
@@ -237,23 +249,29 @@ const IssueList = (props) => {
 
 
   const handlePDFgenerate = () =>{
-    if (userrequest == true) {
+    setPDFLoading(true);
+    
+    if (userrequest) {
       generatePDF(
                   userTotalIssues.issues.totalCount, 
                   userTotalIssues.openIssues.totalCount, 
                   userTotalIssues.closedIssues.totalCount,
                   username,
-                  ""
+                  "",
+                  newData
                   );
+                 
     } else {
       generatePDF(
                   repoTotalIssues.issues.totalCount, 
                   repoTotalIssues.openIssues.totalCount, 
                   repoTotalIssues.closedIssues.totalCount,
                   repouser,
-                  repository
+                  repository,
+                  newData
                   );
-    }
+    } 
+    console.log("this is pdfLoading in generatePDF: "+ pdfLoading);
   }
 
   const filterType = (item) => {
@@ -362,7 +380,7 @@ const IssueList = (props) => {
             name="print"
             size={30}
             style={styles.print}
-            onPress={() => handlePDFgenerate() }
+            onPress={() => {/*console.log("pressed");*/handlePDFgenerate()} }
           />
           <MaterialIcons
             name="settings"
@@ -429,24 +447,32 @@ const IssueList = (props) => {
   const getFooter = () => {
     return (
       <View style={styles.loading}>
-        {localLoading == false ? (
-        <View style={styles.lmcontainer}>
+        {localLoading ? (
+        <View style={styles.indicator}>
+            <ActivityIndicator size="large" color="#0000ff" />
+            <Text style={[styles.loadingtext]}>Fetching Issues...</Text>
+        </View>
+              ) : (
+          <View style={styles.lmcontainer}>
           <Button
             style={[styles.lmbutton, { backgroundColor: "#00598C" }]}
             onPress={ () => handleLoadMore()}
             title ="Load More">
           </Button>
         </View>
-              ) : (
-          <View style={styles.indicator}>
-            <ActivityIndicator size="large" color="#0000ff" />
-            <Text style={[styles.loadingtext]}>Fetching Issues...</Text>
-          </View>
         )}
       </View>
     );
   };
 
+  if (pdfLoading) {
+    return(
+    <View style={styles.pdfindicator}>
+      <ActivityIndicator size="large" color="#0000ff" />
+      <Text style={styles.loadingtext}>Loading Report...</Text>
+    </View>
+    );
+  } else {
   return (
     <View style={styles.container}>
       <FlatList
@@ -476,6 +502,7 @@ const IssueList = (props) => {
       />
     </View>
   );
+}
 };
 
 const mapStateToProps = (state) => {
@@ -484,6 +511,7 @@ const mapStateToProps = (state) => {
     status: state.main.status,
     label: state.main.label,
     loading: state.main.loading,
+    pdfUri: state.main.pdfUri,
     search: state.search.search,
     userrequest: state.username.userRequest,
     reporequest: state.repository.repoRequest,
@@ -560,6 +588,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setLabelText: (label) => {
       dispatch(setLabel(label));
+    },
+    setStateLoading: (loading) => {
+      dispatch(setLoading(loading));
     },
     getTotalUserIssues: (username) => {
       dispatch(getTotalIssues(username));

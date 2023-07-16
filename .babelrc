@@ -12,7 +12,8 @@
         //    "src": "./src",
         //    "assets": "./src/assets"
          //}
-        } 
+        }
+        //"transform-inline-environment-variables"
       ] 
     ]
   }

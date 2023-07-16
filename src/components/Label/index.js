@@ -48,7 +48,7 @@ const IssueLabel = (props) => {
     else{ 
      getRepositoryIssuesLabels(repouser, repository, first, after, filterValue, name);
     };
-    navigation.navigate("IssuePage");
+    navigation.navigate("Issues List Page");
   };
 
   return (

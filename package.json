@@ -6,7 +6,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "jetify"
   },
   "dependencies": {
     "@apollo/client": "^3.3.19",
@@ -28,10 +29,11 @@
     "expo": "~47.0.0",
     "expo-app-loading": "~2.1.1",
     "expo-cli": "^5.4.6",
-    "expo-file-system": "^15.2.2",
+    "expo-file-system": "~15.1.1",
     "expo-font": "~11.0.1",
-    "expo-print": "^12.2.1",
-    "expo-sharing": "^11.2.2",
+    "expo-image-loader": "4.0.0",
+    "expo-print": "~12.0.0",
+    "expo-sharing": "~11.0.1",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
     "expo-updates": "~0.15.6",
@@ -63,6 +65,13 @@
     "typescript": "4.3.4"
   },
   "private": true,
+  "resolutions": {
+    "expo-constants": "14.0.2",
+    "expo-modules-core": "0.2.0",
+    "expo-file-system": "15.1.1",
+    "expo-image-loader": "4.0.0"
+  },
+  "license": "MIT",
   "jest": {
     "preset": "jest-expo",
     "transformIgnorePatterns": [
@@ -70,5 +79,6 @@
       "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base)"
     ],
     "automock": false
-  }
+  },
+  "devDependencies": {}
 }

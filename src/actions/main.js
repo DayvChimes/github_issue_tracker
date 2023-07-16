@@ -34,3 +34,10 @@ export const setStatus = (status) => {
     payload: status,
   };
 };
+
+export const setPdfUri = (status) => {
+  return {
+    type: constants.main.SET_PDFURI,
+    payload: status,
+  };
+};

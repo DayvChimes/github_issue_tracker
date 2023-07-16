@@ -200,7 +200,7 @@ export const getFilteredRepoIssues =
         } = result;
 
           dispatch(setTotalRepositoryIssues(repository));
-          console.log(repository);
+          //console.log(repository);
       })
       .catch((error) => {
         console.log("error", error);

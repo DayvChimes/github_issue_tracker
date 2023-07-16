@@ -1,18 +1,36 @@
 import {printToFileAsync} from 'expo-print';
 import { shareAsync } from 'expo-sharing';
-import Chart from 'chart.js';
+import "intl";
+import "intl/locale-data/jsonp/en";
+import { setPdfUri } from '../actions/main';
+import { connect } from "react-redux";
+import React, { useEffect } from 'react';
 
 
 
-const generatePDF = async (issue, open, closed, username, repository) => {
+const generatePDF = async (issue, open, closed, username, repository, newData) => {
   const data = [
     { issue: issue, open: open, closed: closed }
   ];
 
+  const getIssueDate = (createdAt) => {
+    if ("__setDefaultTimeZone" in Intl.DateTimeFormat) {
+      Intl.DateTimeFormat.__setDefaultTimeZone("America/Los_Angeles");
+    }
+
+  let issuedate = Date.parse(createdAt);
+  let ye = new Intl.DateTimeFormat("en", { year: "numeric" }).format(issuedate);
+  let mo = new Intl.DateTimeFormat("en", { month: "short" }).format(issuedate);
+  let da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(issuedate);
+  issuedate = `${da}-${mo}-${ye}`;
+  return issuedate;
+
+  }
+
   const user = username.charAt(0).toUpperCase() + username.slice(1);
   const repo = repository.charAt(0).toUpperCase() + repository.slice(1);
 
-
+//console.log(newData);
 
 const htmlTemplate = `
     <!DOCTYPE html>
@@ -53,6 +71,10 @@ const htmlTemplate = `
           margin-top: 10px;
           margin-bottom: 10px;
         }
+
+        p {
+          padding: 10px;
+        }
         
         th, td {
           border: 1px solid black;
@@ -72,7 +94,7 @@ const htmlTemplate = `
         }
 
         text2 {
-          font-size: 14px;
+          font-size: 16px;
           color: blue;
           margin: 0;
         }
@@ -114,9 +136,9 @@ const htmlTemplate = `
            <table>
            <thead>
            <tr>
-               <th>Issues</th>
-               <th>Open</th>
-               <th>Closed</th>
+               <th>Total Issues</th>
+               <th>Total Open Issues</th>
+               <th>Total Closed Issues</th>
            </tr>
            </thead>
            <tbody>
@@ -136,13 +158,15 @@ const htmlTemplate = `
             `<text>This is a report that shows the total number of issues found within the repository <strong>${repo}</strong></text>`}
           </p>
 
-          <p style="position: absolute; bottom: 0; right: 0; direction: rtl; padding-right: 20px;">
-            <text2>
-            Designed by <strong>David Njagah</strong><br>
-            As a Final year project in KeMU<br>
-            Github Issue Tracker
-            </text2>
+          ${newData.map(item => `
+          <p>
+          <h2>Issue #${item.node.number}: ${item.node.title}</h2>
+          <h2>Issue State: ${item.node.state}</h2>
+          <text2><strong>${getIssueDate(item.node.createdAt)}</strong></text2>
+          <br>
+          <text>${item.node.body}<text>
           </p>
+          `).join('')}
 
           </div>
      
@@ -157,8 +181,18 @@ const htmlTemplate = `
   const pdfFile = await printToFileAsync(options);
   const pdfUri = pdfFile.uri;
   console.log("PDF file generated:", pdfUri);
-  
+
   await shareAsync(pdfUri);
 };
 
 export default generatePDF;
+
+
+
+{/* <p style="position: absolute; bottom: 0; right: 0; direction: rtl; padding-right: 20px;">
+            <text2>
+            Designed by <strong>David Njagah</strong><br>
+            As a Final year project in KeMU<br>
+            Github Issue Tracker
+            </text2>
+</p> */}

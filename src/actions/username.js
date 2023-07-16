@@ -182,7 +182,7 @@ export const getMoreIssues =
         } = result;
         
         dispatch(setTotalIssues(user));
-        console.log(user);
+        //console.log(user);
       })        
       .catch((error) => {
         console.log("error", error);     

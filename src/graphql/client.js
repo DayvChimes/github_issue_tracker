@@ -7,21 +7,22 @@ import {
 } from "@apollo/client";
 import * as UserUtils from "../utils/user";
 
-const AUTH = process.env.GITHUB_API_TOKEN;
+//const apikey = process.env['GITHUB_API_TOKEN'];
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
   uri: "https://api.github.com/graphql",
 });
 
-const token = "place_github_token_here";
+const apikey = "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";
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
+  //console.log(apikey + " this is the github access token");
   operation.setContext(({ headers = {} }) => ({
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: apikey ? `Bearer ${apikey}` : "",
       "Content-Type": "application/json",
     },
   }));

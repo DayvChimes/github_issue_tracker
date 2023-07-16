@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
   loadingtext: {
     fontSize: 16,
     textAlign: "center",
+    marginTop: 10,
   },
   refresh: {
     width: "100%",
@@ -105,6 +106,22 @@ const styles = StyleSheet.create({
   },
   indicator: {
     padding: 10,
+  },
+  pdfindicator: {
+    flex: 1,
+    height: 50,
+    width: "100%",
+    justifyContent: "center",
+    padding: 20,
+    marginTop: -200,
+    
+  },
+  pdftext:{
+    fontSize: 16,
+    alignItems: 'center',
+    textTransform: 'uppercase',
+    marginTop: 15
+    //fontWeight: '500',
   },
   noissues: {
     width: "100%",

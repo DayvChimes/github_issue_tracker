@@ -47,7 +47,7 @@ const LogIn = (props) => {
     setNewStatus(statusnew);
     setRepoRequest(false);
     setUserRequest(false);
-    console.log(values);
+    //console.log(values);
     values.repository == ""
       ? props.getUserIssues(values.username.trim(), first, after, navigation)
       : props.getRepoIssues(
@@ -57,7 +57,7 @@ const LogIn = (props) => {
           after,
           navigation
         );
-    navigation.navigate("IssuePage");
+    navigation.navigate("Issues List Page");
   };
   const backgroundColor = "#171A20CC";
   const textColor = "#FFFFFF";

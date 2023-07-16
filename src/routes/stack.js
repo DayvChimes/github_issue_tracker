@@ -14,8 +14,8 @@ function Navigator() {
     <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen name="LogIn" component={LogIn} />
-      <Stack.Screen name="IssuePage" component={IssuePage} />
-      <Stack.Screen name="IssueDescription" component={IssueDescription} />
+      <Stack.Screen name="Issues List Page" component={IssuePage} />
+      <Stack.Screen name="Issue Description Page" component={IssueDescription} />
     </Stack.Navigator>
     </NavigationContainer>
   );

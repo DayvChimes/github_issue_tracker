@@ -57,7 +57,7 @@ const IssueStatus = (props) => {
       );
     };
     
-    navigation.navigate("IssuePage");
+    navigation.navigate("Issues List Page");
   };
 
   return (

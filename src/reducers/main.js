@@ -7,6 +7,7 @@ const initialState = {
   filter: "CREATED_AT",
   label: null,
   status: null,
+  pdfUri: "",
 };
 
 const main = (state = initialState, action) => {
@@ -21,6 +22,8 @@ const main = (state = initialState, action) => {
       return { ...state, label: action.payload };
     case constants.main.SET_STATUS:
       return { ...state, status: action.payload };
+    case constants.main.SET_PDFURI:
+      return { ...state, pdfUri: action.payload };
     default:
       return state;
   }
